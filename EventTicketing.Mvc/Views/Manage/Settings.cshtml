@@ -1,0 +1,36 @@
+@{ ViewData["Title"] = "Cài đặt & banner"; ViewData["Active"] = "settings"; ViewData["Heading"] = "Cài đặt & banner"; ViewData["Sub"] = "Thông tin liên hệ hiển thị cho khách, banner thông báo trên đầu trang và bật/tắt chatbot."; }
+@section Head { <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" /> }
+<div class="wrap adm">
+  <partial name="_AdminHero" />
+  <div id="guard" class="panel" hidden style="margin-top:24px"></div>
+  <div id="content" class="adm-body">
+    <form id="form" novalidate>
+      <section class="panel"><div class="panel-h"><h2>Thông tin liên hệ</h2></div>
+        <div class="grid2">
+          <div class="field"><label for="hotline">Hotline</label><input id="hotline" maxlength="40" inputmode="tel" /><small class="muted" id="hotHint"></small></div>
+          <div class="field"><label for="email">Email hỗ trợ</label><input id="email" type="email" maxlength="256" /><small class="muted" id="mailHint"></small></div>
+        </div>
+        <p class="hint">Hiện ở thanh trên cùng, chân trang và trong câu trả lời của chatbot. Để trống = dùng giá trị mặc định.</p>
+      </section>
+      <section class="panel"><div class="panel-h"><h2>Banner thông báo</h2></div>
+        <div class="field"><label class="check"><input type="checkbox" id="bOn" /> Hiển thị banner trên mọi trang của khách</label></div>
+        <div class="grid2">
+          <div class="field full"><label for="bText">Nội dung (tối đa 200 ký tự)</label><input id="bText" maxlength="200" placeholder="VD: Mở bán vé đợt 2 từ 10:00 ngày 15/10 – giảm 10% cho 100 khách đầu tiên" /></div>
+          <div class="field"><label for="bLink">Liên kết (tuỳ chọn)</label><input id="bLink" maxlength="300" placeholder="/?f=avail hoặc https://…" /></div>
+          <div class="field"><label for="bTone">Kiểu</label><select id="bTone" class="select" style="width:100%"><option value="info">Thông tin (xanh)</option><option value="promo">Khuyến mãi (vàng)</option><option value="warn">Cảnh báo (cam)</option></select></div>
+        </div>
+        <p class="muted" style="margin:8px 0 6px">Xem trước:</p>
+        <div id="prev" class="site-banner tone-info" style="border-radius:var(--r-sm);overflow:hidden"><div class="site-banner-in"><span id="pvText">…</span><a href="#" id="pvLink" hidden onclick="return false">Xem thêm →</a></div></div>
+      </section>
+      <section class="panel"><div class="panel-h"><h2>Chatbot hỗ trợ</h2></div>
+        <div class="field"><label class="check"><input type="checkbox" id="cOn" /> Hiển thị chatbot cho khách</label></div>
+        <p class="hint">Tắt chatbot sẽ ẩn nút chat và chặn API. Câu hỏi–đáp riêng của bạn soạn ở mục “Quản lý chatbot”.</p>
+      </section>
+      <div style="display:flex;gap:10px;align-items:center;margin-top:16px"><button class="btn btn-primary" type="submit">Lưu cài đặt</button><span class="muted" id="upd"></span></div>
+    </form>
+  </div>
+</div>
+@section Scripts {
+  <script src="~/js/admin-common.js" asp-append-version="true"></script>
+  <script src="~/js/admin-settings.js" asp-append-version="true"></script>
+}

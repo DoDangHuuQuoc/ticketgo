@@ -1,0 +1,60 @@
+/* Widget chatbot hỗ trợ khách hàng – dùng biến màu của ui.css */
+.cb-fab { position: fixed; right: 20px; bottom: 20px; z-index: 900; width: 58px; height: 58px; border: 0; border-radius: 50%; cursor: pointer;
+  background: linear-gradient(135deg, var(--brand), var(--navy-2)); color: #fff; box-shadow: var(--shadow-lg); display: grid; place-items: center; transition: transform .15s; }
+.cb-fab:hover { transform: scale(1.06); }
+.cb-fab:focus-visible { outline: none; box-shadow: var(--focus), var(--shadow-lg); }
+.cb-fab .cb-dot { position: absolute; top: 6px; right: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--gold); border: 2px solid #fff; }
+.cb-panel { position: fixed; right: 20px; bottom: 90px; z-index: 901; width: 370px; max-width: calc(100vw - 24px); height: 540px; max-height: calc(100vh - 110px);
+  display: none; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow-lg); overflow: hidden; font-family: var(--font); }
+.cb-panel.open { display: flex; }
+.cb-head { display: flex; align-items: center; gap: 10px; padding: 14px 16px; background: linear-gradient(135deg, var(--navy), var(--navy-2)); color: #fff; }
+.cb-head b { display: block; font-size: .98rem; }
+.cb-head small { opacity: .8; font-size: .76rem; }
+.cb-avatar { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,.16); display: grid; place-items: center; flex: none; }
+.cb-head .cb-x { margin-left: auto; background: none; border: 0; color: #fff; cursor: pointer; padding: 6px; border-radius: 8px; line-height: 0; }
+.cb-head .cb-x:hover { background: rgba(255,255,255,.14); }
+.cb-body { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; background: var(--surface-2); scroll-behavior: smooth; }
+.cb-msg { max-width: 88%; padding: 9px 13px; border-radius: 16px; font-size: .9rem; line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
+.cb-msg.bot { align-self: flex-start; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-bottom-left-radius: 4px; }
+.cb-msg.me { align-self: flex-end; background: var(--brand); color: #fff; border-bottom-right-radius: 4px; }
+.cb-msg.err { background: var(--bad-50); border-color: var(--bad); color: var(--bad); }
+.cb-links, .cb-chips { display: flex; flex-wrap: wrap; gap: 6px; align-self: flex-start; max-width: 100%; }
+.cb-links a { font-size: .82rem; font-weight: 600; color: var(--brand); background: var(--brand-50); border: 1px solid var(--brand-100); padding: 6px 11px; border-radius: 999px; text-decoration: none; }
+.cb-links a:hover { background: var(--brand-100); }
+.cb-chips button { font: inherit; font-size: .8rem; color: var(--ink-2); background: var(--surface); border: 1px solid var(--line-2); padding: 6px 11px; border-radius: 999px; cursor: pointer; }
+.cb-chips button:hover { border-color: var(--brand); color: var(--brand); }
+.cb-typing { display: inline-flex; gap: 4px; padding: 12px 14px; }
+.cb-typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: cbb 1s infinite ease-in-out; }
+.cb-typing i:nth-child(2) { animation-delay: .15s; } .cb-typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes cbb { 0%, 80%, 100% { opacity: .3; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-3px); } }
+.cb-form { display: flex; gap: 8px; padding: 10px; border-top: 1px solid var(--line); background: var(--surface); }
+.cb-form input { flex: 1; min-width: 0; font: inherit; font-size: .92rem; padding: 10px 14px; border: 1px solid var(--line-2); border-radius: 999px; background: var(--surface-2); color: var(--ink); }
+.cb-form input:focus { outline: none; border-color: var(--brand); box-shadow: var(--focus); }
+.cb-form button { border: 0; border-radius: 50%; width: 42px; height: 42px; background: var(--brand); color: #fff; cursor: pointer; display: grid; place-items: center; flex: none; }
+.cb-form button:disabled { opacity: .5; cursor: default; }
+.cb-foot { text-align: center; font-size: .7rem; color: var(--muted); padding: 0 10px 8px; background: var(--surface); }
+@media (max-width: 520px) {
+  .cb-panel { right: 8px; left: 8px; width: auto; bottom: 84px; height: min(560px, calc(100vh - 100px)); }
+  .cb-fab { right: 14px; bottom: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { .cb-fab, .cb-typing i { transition: none; animation: none; } }
+
+/* Form gửi phản hồi cho nhân viên */
+.cb-fb { display: flex; flex-direction: column; gap: 8px; background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--r); padding: 12px; align-self: stretch; }
+.cb-fb input, .cb-fb select, .cb-fb textarea { font: inherit; font-size: .88rem; padding: 8px 10px; border: 1px solid var(--line-2); border-radius: var(--r-sm); background: var(--surface-2); color: var(--ink); width: 100%; }
+.cb-fb textarea { resize: vertical; min-height: 70px; }
+.cb-fb input:focus, .cb-fb select:focus, .cb-fb textarea:focus { outline: none; border-color: var(--brand); box-shadow: var(--focus); }
+.cb-fb-b { display: flex; gap: 8px; justify-content: flex-end; }
+.cb-fb-b button { font: inherit; font-size: .85rem; font-weight: 600; padding: 8px 14px; border-radius: 999px; cursor: pointer; border: 1px solid var(--line-2); background: var(--surface); color: var(--ink-2); }
+.cb-fb-b .cb-fb-ok { background: var(--brand); border-color: var(--brand); color: #fff; }
+.cb-fb-b button:disabled { opacity: .6; cursor: default; }
+
+/* Chat trực tiếp với nhân viên */
+.cb-live-bar { display: flex; justify-content: space-between; gap: 8px; padding: 6px 10px; background: var(--surface); border-top: 1px solid var(--line); }
+.cb-live-bar[hidden] { display: none; }
+.cb-live-bar button { font: inherit; font-size: .8rem; font-weight: 600; color: var(--brand); background: none; border: 0; cursor: pointer; padding: 4px 6px; border-radius: 8px; }
+.cb-live-bar button:hover { background: var(--brand-50); }
+.cb-note { align-self: center; text-align: center; font-size: .78rem; color: var(--muted); max-width: 90%; }
+.cb-msg.staff { border-color: var(--brand-100); background: var(--brand-50); }
+.cb-time { display: block; margin-top: 3px; font-size: .68rem; opacity: .7; }
+.cb-foot:empty { display: none; }

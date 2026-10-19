@@ -1,0 +1,21 @@
+@{ ViewData["Title"] = "Nhật ký thao tác"; ViewData["Active"] = "audit"; ViewData["Heading"] = "Nhật ký thao tác"; ViewData["Sub"] = "Mọi thao tác quản trị đều được ghi lại: ai làm, làm gì, lúc nào."; }
+@section Head { <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" /> }
+<div class="wrap adm">
+  <partial name="_AdminHero" />
+  <div id="guard" class="panel" hidden style="margin-top:24px"></div>
+  <div id="content" class="adm-body">
+    <div class="adm-bar">
+      <div class="grow">
+        <label class="search"><span class="sr-only">Tìm trong nhật ký</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="q" type="search" placeholder="Người thực hiện, hành động, chi tiết" autocomplete="off" /></label>
+        <select id="type" class="select" aria-label="Đối tượng"><option value="">Mọi đối tượng</option><option value="Event">Sự kiện</option><option value="TicketType">Loại vé</option><option value="Booking">Đơn hàng</option><option value="Ticket">Vé</option><option value="User">Người dùng</option><option value="Feedback">Phản hồi</option><option value="ChatFaq">FAQ chatbot</option><option value="Broadcast">Email hàng loạt</option><option value="Site">Cài đặt</option></select>
+      </div>
+    </div>
+    <section class="panel"><div class="table-wrap"><table class="tbl"><thead><tr><th>Thời gian</th><th>Người thực hiện</th><th>Hành động</th><th>Chi tiết</th></tr></thead><tbody id="rows"></tbody></table></div><div class="pager" id="pager"></div></section>
+  </div>
+</div>
+@section Scripts {
+  <script src="~/js/admin-common.js" asp-append-version="true"></script>
+  <script src="~/js/admin-audit.js" asp-append-version="true"></script>
+}

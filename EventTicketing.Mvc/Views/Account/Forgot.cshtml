@@ -1,0 +1,51 @@
+@{ ViewData["Title"] = "Quên mật khẩu"; ViewData["Auth"] = true; }
+<div class="auth">
+  <partial name="_AuthArt" />
+  <div class="auth-form">
+    <div class="auth-top">
+      <a class="brand auth-brand" href="/" aria-label="TicketGo"><img src="/img/logo-wordmark.png" alt="TicketGo" width="210" height="46" /></a>
+      <a class="auth-back" href="/Account/Login">&larr; Về đăng nhập</a>
+      <span>Nhớ mật khẩu rồi? <a href="/Account/Login">Đăng nhập</a></span>
+    </div>
+    <form id="f" class="auth-card" data-mode="forgot" novalidate>
+      <ol class="auth-steps" aria-label="Các bước đặt lại mật khẩu">
+        <li id="st1" aria-current="step">Nhập email</li>
+        <li id="st2">Mã OTP &amp; mật khẩu mới</li>
+      </ol>
+      <h1 id="fgTitle">Quên mật khẩu?</h1>
+      <p class="muted" id="fgSub">Nhập email đã đăng ký, chúng tôi sẽ gửi mã OTP 6 số để bạn đặt lại mật khẩu.</p>
+      <p class="form-err" id="formErr" role="alert"></p>
+
+      <div class="field" data-field="email">
+        <label for="email">Email</label>
+        <div class="ctl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+          <input id="email" name="email" type="email" autocomplete="email" required placeholder="ten@@email.com" aria-describedby="email-err" /></div>
+        <small class="err" id="email-err" role="alert"></small>
+      </div>
+
+      <div id="stage2" class="fg-stage" hidden>
+        <p class="fg-sent" role="status"><span aria-hidden="true">📬</span><span>Mã OTP đã được gửi tới email của bạn (nhớ xem cả mục Spam). Mã có hiệu lực trong 5 phút.</span></p>
+        <div class="field"><label id="otpLabel">Mã OTP</label><div class="otp" id="otp" role="group" aria-labelledby="otpLabel"></div></div>
+
+        <div class="field" data-field="password">
+          <label for="password">Mật khẩu mới</label>
+          <div class="ctl pw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+            <input id="password" name="password" type="password" minlength="8" autocomplete="new-password" aria-describedby="password-err" />
+            <button type="button" class="pw-toggle" aria-label="Hiện mật khẩu"></button></div>
+          <small class="err" id="password-err" role="alert"></small>
+        </div>
+        <div class="field" data-field="confirm">
+          <label for="confirm">Nhập lại mật khẩu mới</label>
+          <div class="ctl pw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+            <input id="confirm" name="confirm" type="password" autocomplete="new-password" aria-describedby="confirm-err" />
+            <button type="button" class="pw-toggle" aria-label="Hiện mật khẩu"></button></div>
+          <small class="err" id="confirm-err" role="alert"></small>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-block" type="submit" id="fgBtn">Gửi mã OTP</button>
+      <button class="btn btn-ghost btn-block fg-stage" type="button" id="resend" hidden>Gửi lại mã</button>
+    </form>
+  </div>
+</div>
+@section Scripts { <script src="~/js/auth.js" asp-append-version="true"></script> }

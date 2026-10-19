@@ -1,0 +1,26 @@
+@{ ViewData["Title"] = "Sổ giao dịch"; ViewData["Active"] = "txn"; ViewData["Heading"] = "Sổ giao dịch"; ViewData["Sub"] = "Mọi khoản thu và hoàn tiền đã ghi nhận: lọc theo thời gian, sự kiện và xuất CSV để đối soát ngân hàng."; }
+@section Head { <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" /> }
+<div class="wrap adm">
+  <partial name="_AdminHero" />
+  <div id="guard" class="panel" hidden style="margin-top:24px"></div>
+  <div id="content" class="adm-body">
+    <div class="kpis" id="kpi"><div class="kpi-skel"></div><div class="kpi-skel"></div><div class="kpi-skel"></div></div>
+    <div class="adm-bar">
+      <div class="grow">
+        <label class="search"><span class="sr-only">Tìm giao dịch</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="q" type="search" placeholder="Mã giao dịch, mã đơn, email, tên" autocomplete="off" /></label>
+        <select id="ev" class="select" aria-label="Sự kiện"><option value="">Mọi sự kiện</option></select>
+        <label class="sr-only" for="from">Từ ngày</label><input id="from" type="date" class="select" />
+        <label class="sr-only" for="to">Đến ngày</label><input id="to" type="date" class="select" />
+      </div>
+      <button class="btn btn-ghost" type="button" id="export">⬇ Xuất CSV</button>
+    </div>
+    <div class="chips wrap-chips" id="chips" role="group" aria-label="Lọc loại giao dịch" style="margin-bottom:14px"></div>
+    <section class="panel"><div class="table-wrap"><table class="tbl"><thead><tr><th>Thời gian</th><th>Loại</th><th class="r">Số tiền</th><th>Mã giao dịch</th><th>Khách hàng</th><th>Sự kiện</th></tr></thead><tbody id="rows"><tr><td colspan="6" class="empty">Đang tải…</td></tr></tbody></table></div><div class="pager" id="pager"></div></section>
+  </div>
+</div>
+@section Scripts {
+  <script src="~/js/admin-common.js" asp-append-version="true"></script>
+  <script src="~/js/admin-transactions.js" asp-append-version="true"></script>
+}

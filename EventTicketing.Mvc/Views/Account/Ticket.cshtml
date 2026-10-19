@@ -1,0 +1,13 @@
+@model Guid
+@{ ViewData["Title"] = "Xem vé"; }
+@section Head { <link rel="stylesheet" href="~/css/checkout.css" asp-append-version="true" /> }
+<div class="ck-page">
+  <div class="wrap">
+    <div id="app" class="ck" data-mode="ticket" data-id="@Model"><div class="skel ck-skel" style="height:360px"></div></div>
+  </div>
+</div>
+<dialog id="qrDialog" class="qr-modal" aria-label="Mã QR phóng to">
+  <img id="qrBig" alt="Mã QR của vé" />
+  <button class="btn btn-ink btn-block" type="button" id="qrClose">Đóng</button>
+</dialog>
+@section Scripts { <script src="~/js/ticket-view.js" asp-append-version="true"></script> }

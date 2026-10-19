@@ -1,0 +1,90 @@
+@{ ViewData["Title"] = "Hồ sơ nhân viên"; }
+@section Head { <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+  <link rel="stylesheet" href="~/css/staff.css" asp-append-version="true" /> }
+<div class="wrap stf">
+  <header class="adm-hero"><div class="adm-hero-top"><div><h1>Hồ sơ &amp; mật khẩu</h1><p>Thông tin tài khoản nhân viên và đổi mật khẩu đăng nhập.</p></div><a class="btn btn-ghost" href="/Staff/CheckIn">← Về soát vé</a></div></header>
+  <div id="content">
+  <div class="pf" id="pf">
+    <aside class="pf-side" aria-label="Tóm tắt tài khoản">
+      <div class="skel" style="height:300px;border-radius:20px"></div>
+    </aside>
+
+    <div class="pf-main">
+      <section class="pf-card" aria-labelledby="pf-info-t">
+        <h2 id="pf-info-t">Hồ sơ</h2>
+        <form id="infoForm" novalidate>
+          <p class="form-err" id="infoErr" role="alert"></p>
+          <div class="pf-grid">
+            <div class="field full" data-field="fullName">
+              <label for="fullName">Họ và tên <span class="req" aria-hidden="true">*</span></label>
+              <input id="fullName" name="fullName" type="text" maxlength="200" autocomplete="name" required aria-describedby="fullName-err" />
+              <small class="err" id="fullName-err" role="alert"></small>
+            </div>
+            <div class="field" data-field="email">
+              <label for="email">Email</label>
+              <input id="email" type="email" disabled aria-describedby="email-hint" />
+              <small class="muted" id="email-hint">Email dùng để đăng nhập nên không đổi được.</small>
+            </div>
+            <div class="field" data-field="phone">
+              <label for="phone">Số điện thoại</label>
+              <input id="phone" name="phone" type="tel" inputmode="tel" maxlength="20" autocomplete="tel" placeholder="0912 345 678" aria-describedby="phone-err" />
+              <small class="err" id="phone-err" role="alert"></small>
+            </div>
+            <div class="field" data-field="dateOfBirth">
+              <label for="dateOfBirth">Ngày sinh</label>
+              <input id="dateOfBirth" name="dateOfBirth" type="date" min="1900-01-01" autocomplete="bday" aria-describedby="dateOfBirth-err" />
+              <small class="err" id="dateOfBirth-err" role="alert"></small>
+            </div>
+            <div class="field">
+              <span class="strong" id="genderLbl">Giới tính</span>
+              <div class="chips" id="genderChips" role="radiogroup" aria-labelledby="genderLbl">
+                <button type="button" role="radio" data-g="Male" aria-checked="false">Nam</button>
+                <button type="button" role="radio" data-g="Female" aria-checked="false">Nữ</button>
+                <button type="button" role="radio" data-g="Other" aria-checked="false">Khác</button>
+              </div>
+            </div>
+            <div class="field full" data-field="address">
+              <label for="address">Địa chỉ</label>
+              <textarea id="address" name="address" rows="2" maxlength="300" autocomplete="street-address" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành" aria-describedby="address-err"></textarea>
+              <small class="err" id="address-err" role="alert"></small>
+            </div>
+          </div>
+          <div class="pf-actions">
+            <button class="btn btn-primary" type="submit" id="infoSave" disabled>Lưu thay đổi</button>
+            <button class="btn btn-ghost" type="button" id="infoReset" disabled>Hoàn tác</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="pf-card" aria-labelledby="pf-pw-t">
+        <h2 id="pf-pw-t">Đổi mật khẩu</h2>
+        <form id="pwForm" novalidate>
+          <p class="form-err" id="pwErr" role="alert"></p>
+          <div class="pf-grid">
+            <div class="field full" data-field="currentPassword">
+              <label for="currentPassword">Mật khẩu hiện tại</label>
+              <div class="ctl pw pf-pw"><input id="currentPassword" type="password" autocomplete="current-password" aria-describedby="currentPassword-err" /><button type="button" class="pw-toggle" aria-label="Hiện mật khẩu"></button></div>
+              <small class="err" id="currentPassword-err" role="alert"></small>
+            </div>
+            <div class="field" data-field="newPassword">
+              <label for="newPassword">Mật khẩu mới</label>
+              <div class="ctl pw pf-pw"><input id="newPassword" type="password" autocomplete="new-password" aria-describedby="newPassword-err" /><button type="button" class="pw-toggle" aria-label="Hiện mật khẩu"></button></div>
+              <small class="err" id="newPassword-err" role="alert"></small>
+            </div>
+            <div class="field" data-field="confirmPassword">
+              <label for="confirmPassword">Nhập lại mật khẩu mới</label>
+              <div class="ctl pw pf-pw"><input id="confirmPassword" type="password" autocomplete="new-password" aria-describedby="confirmPassword-err" /><button type="button" class="pw-toggle" aria-label="Hiện mật khẩu"></button></div>
+              <small class="err" id="confirmPassword-err" role="alert"></small>
+            </div>
+          </div>
+          <p class="muted" style="margin:0 0 14px">Mật khẩu tối thiểu 8 ký tự và khác mật khẩu hiện tại.</p>
+          <div class="pf-actions"><button class="btn btn-ink" type="submit" id="pwSave">Cập nhật mật khẩu</button></div>
+        </form>
+      </section>
+    </div>
+  </div>
+  </div>
+</div>
+@section Scripts {
+  <script src="~/js/profile.js" asp-append-version="true"></script>
+}

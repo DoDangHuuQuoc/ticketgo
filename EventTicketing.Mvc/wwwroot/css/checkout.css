@@ -1,0 +1,185 @@
+/* Thanh toán + đơn hàng + xem vé (Event/Checkout, Account/Order, Account/Ticket) */
+.ck-page { padding: 28px 0 24px; }
+.ck { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; }
+.ck-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 14px 20px; }
+.ck-head > div:first-child { min-width: 0; }
+.ck-head h1 { margin: 0; }
+.ck-back { display: inline-block; margin-bottom: 4px; text-decoration: none; font-weight: 700; color: var(--brand); font-size: .92rem; }
+.ck-back:hover { text-decoration: underline; }
+.ck-timer { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 99px; background: var(--gold-50); border: 1px solid #f6d79a; color: #7a4b00; font-weight: 600; font-size: .92rem; }
+.ck-timer svg { flex: none; }
+.ck-timer b { font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+.ck-timer.low { background: var(--bad-50); border-color: #f4b5b9; color: var(--bad); animation: blink 1s infinite; }
+@keyframes blink { 50% { opacity: .6; } }
+.ck-steps { padding: 4px 2px; }
+.ck-grid { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 24px; align-items: start; }
+.ck-main { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; min-width: 0; }
+.ck-card { background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
+.ck-card > h2 { display: flex; align-items: center; gap: 12px; margin: 0; padding: 16px 22px; font-size: 1.1rem; background: var(--surface-2); border-bottom: 1px solid var(--line); }
+.ck-n { display: grid; place-items: center; flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--navy); color: #fff; font-size: .85rem; font-weight: 800; }
+.ck-b { padding: 20px 22px; display: grid; gap: 14px; }
+.ck-b > * { margin: 0; }
+.ck-kv { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; }
+.ck-kv span { color: var(--muted); }
+.ck-mini { font-size: .84rem; color: var(--muted); line-height: 1.55; }
+.ck-mini a { color: var(--brand); font-weight: 600; }
+.ck-pm { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.ck-pmi { position: relative; display: block; min-width: 0; cursor: pointer; }
+.ck-pmi input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.ck-pmc { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px; height: 100%; padding: 14px; border: 1.5px solid var(--line-2); border-radius: var(--r); background: #fff; transition: border-color .15s, background .15s, box-shadow .15s; }
+.ck-pmi:hover .ck-pmc { border-color: var(--brand); }
+.ck-pmc > i { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--brand-50); color: var(--brand); }
+.ck-pmc > span { display: grid; min-width: 0; line-height: 1.3; }
+.ck-pmc small { color: var(--muted); font-size: .78rem; }
+.ck-pmc > u { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--line-2); text-decoration: none; transition: all .15s; }
+.ck-pmi input:checked + .ck-pmc { border-color: var(--brand); background: var(--brand-50); box-shadow: 0 0 0 3px var(--brand-100); }
+.ck-pmi input:checked + .ck-pmc > u { border-color: var(--brand); background: radial-gradient(circle, var(--brand) 45%, #fff 50%); }
+.ck-pmi input:focus-visible + .ck-pmc { box-shadow: var(--focus); }
+.ck-panel { padding: 16px; border-radius: var(--r); background: var(--surface-2); border: 1px dashed var(--line-2); }
+.ck-note-in { margin: 0; font-size: .92rem; color: var(--ink-2); }
+.ck-qr { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 20px; align-items: start; }
+.ck-qr > div:first-child { text-align: center; }
+.ck-qrimg { display: block; width: 100%; max-width: 210px; margin: 0 auto 8px; padding: 8px; background: #fff; border: 1px solid var(--line-2); border-radius: 14px; }
+.ck-qrinfo { display: grid; gap: 8px; min-width: 0; }
+.ck-qrl { display: grid; grid-template-columns: 104px minmax(0, 1fr) auto; align-items: center; gap: 8px 10px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: .9rem; }
+.ck-qrl span { color: var(--muted); }
+.ck-qrl b { min-width: 0; overflow-wrap: anywhere; }
+.ck-copy { min-height: 30px; padding: 4px 12px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; color: var(--brand); font-weight: 700; font-size: .78rem; cursor: pointer; white-space: nowrap; }
+.ck-copy:hover { background: var(--brand-50); border-color: var(--brand); }
+.ck-agree { display: flex; gap: 10px; align-items: flex-start; font-size: .92rem; color: var(--ink-2); cursor: pointer; }
+.ck-agree input { margin-top: 3px; }
+.ck-side { position: sticky; top: calc(var(--site-h) + 16px); min-width: 0; }
+.ck-ticket { background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl); box-shadow: var(--shadow); overflow: hidden; }
+.ck-poster { aspect-ratio: 16 / 8; }
+.ck-tb { padding: 18px 22px; display: grid; gap: 10px; }
+.ck-tb h3 { margin: 0; font-size: 1.15rem; }
+.ck-row { display: flex; align-items: flex-start; gap: 10px; color: var(--ink-2); font-size: .92rem; min-width: 0; }
+.ck-row svg { flex: none; margin-top: 3px; color: var(--muted); }
+.ck-row span { min-width: 0; }
+.ck-perf { position: relative; height: 0; margin: 0 22px; border-top: 2px dashed var(--line-2); }
+.ck-perf::before, .ck-perf::after { content: ''; position: absolute; top: -12px; width: 22px; height: 22px; border-radius: 50%; background: var(--bg); border: 1px solid var(--line); }
+.ck-perf::before { left: -34px; }
+.ck-perf::after { right: -34px; }
+.ck-line { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; font-size: .93rem; }
+.ck-line > span { min-width: 0; }
+.ck-line small { display: block; color: var(--muted); }
+.ck-line b { white-space: nowrap; }
+.ck-off { color: var(--ok); }
+.ck-total { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 14px; border-top: 1px solid var(--line); font-weight: 700; }
+.ck-total b { font-size: 1.5rem; font-weight: 800; color: var(--brand-600); }
+.btn.ck-pay { background: linear-gradient(135deg, var(--gold), #f28a2e); color: #1a1405; min-height: 52px; font-size: 1.02rem; font-weight: 800; box-shadow: 0 12px 26px -10px rgba(240, 140, 46, .9); }
+.ck-tb > .ck-pay { width: 100%; margin-top: 4px; }
+.btn.ck-pay:disabled { background: #d9deea; color: var(--muted); box-shadow: none; opacity: 1; }
+.btn.ck-ghost { background: #fff; border-color: var(--line-2); color: var(--ink); }
+.btn.ck-ghost:hover { border-color: var(--brand); color: var(--brand); background: var(--brand-50); }
+.ck-skel { border-radius: var(--r-lg); }
+.ck-end { display: grid; justify-items: center; gap: 4px; max-width: 560px; margin: 24px auto 8px; padding: 36px 28px; text-align: center; background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl); box-shadow: var(--shadow); }
+.ck-end h1 { margin: 8px 0 4px; font-size: clamp(1.4rem, 3vw, 1.9rem); }
+.ck-end p { margin: 0 0 6px; color: var(--ink-2); }
+.ck-end > .btn { margin-top: 14px; }
+.ck-end.ck-order { max-width: none; width: 100%; margin: 0; }
+.ck-mark { display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%; background: var(--ok-50); color: var(--ok); }
+.ck-mark.bad { background: var(--bad-50); color: var(--bad); }
+.ck-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.ck-actions.tight { justify-content: flex-end; }
+.ck-tips { list-style: none; display: grid; gap: 8px; padding: 16px 20px; border-radius: var(--r); background: var(--gold-50); color: #7a4b00; font-size: .9rem; }
+.ck-tips li { position: relative; padding-left: 18px; }
+.ck-tips li::before { content: '•'; position: absolute; left: 4px; font-weight: 800; }
+
+/* ---- Vé điện tử ---- */
+.tkt-list { display: grid; gap: 18px; }
+.tkt { display: grid; grid-template-columns: minmax(0, 1fr) 250px; background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl); box-shadow: var(--shadow); overflow: hidden; position: relative; }
+.tkt.dim { opacity: .68; }
+.tkt-l { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 20px; padding: 22px; min-width: 0; }
+.tkt-poster { align-self: start; aspect-ratio: 3 / 4; border-radius: 16px; }
+.tkt-info { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.tkt-info h2 { margin: 0; font-size: 1.3rem; }
+.tkt-st { justify-self: start; padding: 3px 12px; border-radius: 99px; font-size: .76rem; font-weight: 800; background: #eceff6; color: var(--muted); }
+.tkt-st.ok { background: var(--ok-50); color: #087a54; }
+.tkt-st.bad { background: var(--bad-50); color: var(--bad); }
+.tkt-meta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 8px 0 0; padding: 12px 14px; border-radius: var(--r); background: var(--surface-2); }
+.tkt-meta div { min-width: 0; }
+.tkt-meta dt { font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 700; }
+.tkt-meta dd { margin: 2px 0 0; font-weight: 700; font-size: .93rem; }
+.tkt-r { position: relative; display: grid; justify-items: center; align-content: center; gap: 8px; padding: 22px; text-align: center; border-left: 2px dashed var(--line-2); background: var(--surface-2); }
+.tkt-r::before, .tkt-r::after { content: ''; position: absolute; left: -12px; width: 22px; height: 22px; border-radius: 50%; background: var(--bg); border: 1px solid var(--line); }
+.tkt-r::before { top: -12px; }
+.tkt-r::after { bottom: -12px; }
+.tkt-r p { margin: 0; font-size: .8rem; color: var(--muted); }
+.tkt-qr { display: block; width: 170px; max-width: 100%; padding: 8px; border: 1px solid var(--line-2); border-radius: 16px; background: #fff; cursor: zoom-in; }
+.tkt-qr img { display: block; width: 100%; border-radius: 8px; }
+.tkt-big .tkt-qr { width: 200px; }
+.tkt-code { font-family: ui-monospace, Menlo, Consolas, monospace; letter-spacing: .1em; font-size: 1rem; }
+.btn.tkt-btn { background: var(--navy); color: #fff; min-height: 40px; font-size: .88rem; }
+.btn.tkt-btn:hover { background: var(--brand); }
+
+@media (max-width: 1000px) {
+  .ck-grid { grid-template-columns: minmax(0, 1fr); }
+  .ck-side { position: static; order: -1; }
+}
+@media (max-width: 760px) {
+  .tkt { grid-template-columns: minmax(0, 1fr); }
+  .tkt-r { border-left: 0; border-top: 2px dashed var(--line-2); }
+  .tkt-r::before, .tkt-r::after { top: -12px; bottom: auto; }
+  .tkt-r::before { left: -12px; }
+  .tkt-r::after { left: auto; right: -12px; }
+}
+@media (max-width: 640px) {
+  .ck-pm { grid-template-columns: minmax(0, 1fr); }
+  .ck-qr { grid-template-columns: minmax(0, 1fr); }
+  .ck-qrl { grid-template-columns: minmax(0, 1fr) auto; }
+  .ck-qrl span { grid-column: 1 / -1; font-size: .78rem; }
+  .tkt-l { grid-template-columns: minmax(0, 1fr); padding: 18px; }
+  .tkt-poster { aspect-ratio: 16 / 9; }
+  .tkt-meta { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .ck-actions.tight { justify-content: flex-start; }
+}
+
+/* Mục mã giảm giá trên trang thanh toán */
+.ck-cp { display: flex; gap: 8px; }
+.ck-cp input { flex: 1; min-width: 0; text-transform: uppercase; }
+.ck-cpmsg { font-size: .88rem; }
+.ck-cpmsg:empty { display: none; }
+.ck-cpmsg.err { color: var(--bad); font-weight: 600; }
+.ck-cp-on { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border: 1.5px solid var(--ok); border-radius: var(--r); background: var(--surface-2); }
+.ck-cp-on > div { display: grid; min-width: 0; }
+.ck-cp-on b { letter-spacing: .04em; }
+.ck-cp-on small { color: var(--ok); font-weight: 600; }
+.ck-qrwait { display: grid; gap: 12px; justify-items: start; }
+.ck-flash { animation: ckflash 1.4s ease-out; }
+@keyframes ckflash { 0% { box-shadow: 0 0 0 0 var(--brand-100), 0 0 0 3px var(--brand); } 100% { box-shadow: 0 0 0 14px transparent, 0 0 0 3px transparent; } }
+
+/* Chờ thanh toán QR: trang tự chuyển sang vé khi tiền về */
+.ck-wait { display: flex; align-items: center; gap: 12px; padding: 14px 16px; margin-top: 4px; background: var(--brand-50); border: 1px solid var(--brand-100); border-radius: 14px; color: var(--ink-2); }
+.ck-wait b { display: block; color: var(--brand-600); }
+.ck-wait small { display: block; font-size: .82rem; color: var(--muted); line-height: 1.4; }
+.ck-spin { flex: none; width: 22px; height: 22px; border-radius: 50%; border: 3px solid var(--brand-100); border-top-color: var(--brand); animation: ckspin .9s linear infinite; }
+@keyframes ckspin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .ck-spin { animation-duration: 3s; } }
+
+
+/* Mã giảm giá đã lưu: hỏi khách có muốn áp cho đơn hay không */
+.ck-cp { margin: 4px 0 6px; padding: 12px 14px; border-radius: 12px; border: 1px dashed var(--brand); background: var(--brand-50); display: grid; gap: 10px; }
+.ck-cp.ok { grid-template-columns: minmax(0, 1fr) auto; align-items: center; border-style: solid; border-color: var(--ok); background: var(--ok-50); }
+.ck-cp b { display: block; font-size: .92rem; }
+.ck-cp small { display: block; color: var(--muted); font-size: .8rem; }
+.ck-cp-t { margin: 0; font-size: .86rem; font-weight: 700; color: var(--ink); }
+.ck-cp-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.ck-cp-row > div { min-width: 0; }
+.ck-cp-btns { display: inline-flex; align-items: center; gap: 8px; }
+.ck-cp-yes { background: var(--brand); color: #fff; border-color: var(--brand); }
+.ck-cp-yes:hover { background: var(--brand-600); color: #fff; }
+.ck-cp-no { min-height: 30px; padding: 4px 10px; border: 0; background: none; color: var(--muted); font-weight: 600; font-size: .78rem; cursor: pointer; }
+.ck-cp-no:hover { color: var(--ink); text-decoration: underline; }
+.ck-cp button:disabled { opacity: .6; cursor: wait; }
+
+.ck-cp-in { display: flex; gap: 8px; }
+.ck-cp-in input { flex: 1 1 auto; min-width: 0; min-height: 36px; padding: 6px 12px; border: 1px solid var(--line-2); border-radius: 8px; background: #fff; font: inherit; font-size: .9rem; text-transform: uppercase; }
+.ck-cp-in input:focus { outline: 2px solid var(--brand); outline-offset: 1px; }
+.ck-cp-sub { margin: 0; font-size: .82rem; color: var(--muted); }
+.ck-cp-sub a { color: var(--brand); font-weight: 700; }
+
+/* Ảnh poster trên vé: hiện trọn ảnh (không cắt chữ), phần thừa là nền mờ cùng ảnh */
+.tkt-poster { position: relative; background: #0f1e3d; }
+.tkt-poster > .pbg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: blur(14px) brightness(.55); transform: scale(1.2); }
+.tkt-poster > .pfg { position: relative; z-index: 1; object-fit: contain !important; }

@@ -1,0 +1,26 @@
+@{ ViewData["Title"] = "Quản lý nhân viên"; ViewData["Active"] = "staff"; ViewData["Heading"] = "Quản lý nhân viên"; ViewData["Sub"] = "Tạo và quản lý tài khoản nhân viên soát vé / hỗ trợ: tạo mới, khoá, đặt lại mật khẩu, gỡ quyền."; }
+@section Head { <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" /> }
+<div class="wrap adm">
+  <partial name="_AdminHero" />
+  <div id="guard" class="panel" hidden style="margin-top:24px"></div>
+  <div id="content" class="adm-body">
+    <section class="panel" style="margin-bottom:16px">
+      <div class="panel-h"><h2>Nhân viên làm được gì?</h2><span class="muted" id="stCount"></span></div>
+      <p class="hint" style="margin:0">Tài khoản nhân viên chỉ dùng <b>Soát vé</b> (quét QR tại cổng), đăng nhập ở trang chính rồi tự vào khu nhân viên. Nhân viên không vào được khu quản trị và không xem được doanh thu, đơn hàng, người dùng hay cài đặt. Quyền Admin cấp ở trang “Người dùng”.</p>
+    </section>
+    <div class="adm-bar">
+      <div class="grow">
+        <label class="search"><span class="sr-only">Tìm nhân viên</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="q" type="search" placeholder="Tìm theo email hoặc tên" autocomplete="off" /></label>
+        <select id="state" class="select" aria-label="Trạng thái"><option value="">Mọi trạng thái</option><option value="active">Đang hoạt động</option><option value="locked">Bị khoá</option></select>
+      </div>
+      <button class="btn btn-primary" type="button" id="newStaff">+ Thêm nhân viên</button>
+    </div>
+    <section class="panel"><div class="table-wrap"><table class="tbl"><thead><tr><th>Nhân viên</th><th>Trạng thái</th><th>Ngày tạo</th><th></th></tr></thead><tbody id="rows"><tr><td colspan="4" class="empty">Đang tải…</td></tr></tbody></table></div><div class="pager" id="pager"></div></section>
+  </div>
+</div>
+@section Scripts {
+  <script src="~/js/admin-common.js" asp-append-version="true"></script>
+  <script src="~/js/admin-staff.js" asp-append-version="true"></script>
+}

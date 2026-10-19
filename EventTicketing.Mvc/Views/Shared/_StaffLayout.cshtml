@@ -1,0 +1,48 @@
+@inject Microsoft.Extensions.Configuration.IConfiguration SiteCfg
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f0a93a" />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" href="/img/favicon.png" />
+  <title>@ViewData["Title"] – TicketGo Nhân viên</title>
+  <script>
+    // Khu Nhân viên chỉ dành cho tài khoản Staff: Admin về khu quản trị, khách về trang khách
+    (function () {
+      try {
+        var r = localStorage.getItem('role');
+        if (localStorage.getItem('jwt')) {
+          if (r === 'Admin') location.replace('/Manage/Dashboard');
+          else if (r === 'User') location.replace('/');
+        }
+      } catch (e) { }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="~/css/ui.css" asp-append-version="true" />
+  @await RenderSectionAsync("Head", required: false)
+</head>
+<body data-shell="staff">
+  <a class="skip" href="#main">Bỏ qua điều hướng</a>
+
+  @* Khu nhân viên: chỉ soát vé. Không có menu khách, không có menu quản trị, không chatbot, không chân trang *@
+  <header class="site-header stf-header">
+    <div class="wrap bar">
+      <a class="brand" href="/Staff/CheckIn" aria-label="TicketGo – Soát vé"><img src="/img/logo-wordmark.png" alt="TicketGo" width="185" height="52" /></a>
+      <span class="stf-tag">Nhân viên soát vé</span>
+      <nav class="nav" id="nav" aria-label="Tài khoản"></nav>
+    </div>
+  </header>
+
+  <main id="main">@RenderBody()</main>
+
+  <div id="toast" class="toasts" popover="manual" role="status" aria-live="polite"></div>
+  <script>window.API_BASE = @Html.Raw(System.Text.Json.JsonSerializer.Serialize((SiteCfg["Api:BaseUrl"] ?? "").Trim().TrimEnd('/')));</script>
+  <script src="~/js/app.js" asp-append-version="true"></script>
+  @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

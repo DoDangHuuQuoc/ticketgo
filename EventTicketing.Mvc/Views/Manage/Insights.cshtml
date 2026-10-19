@@ -1,0 +1,32 @@
+@{ ViewData["Title"] = "Phân tích sâu"; ViewData["Active"] = "insights"; ViewData["Heading"] = "Phân tích sâu"; ViewData["Sub"] = "Giờ và ngày bán chạy, khách hàng giá trị cao, tỷ lệ chuyển đổi/huỷ và thống kê phản hồi."; }
+@section Head { <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" /> }
+<div class="wrap adm">
+  <partial name="_AdminHero" />
+  <div id="guard" class="panel" hidden style="margin-top:24px"></div>
+  <div id="content" class="adm-body">
+    <div class="adm-bar">
+      <div class="grow">
+        <div class="chips" id="preset" role="group" aria-label="Khoảng nhanh">
+          <button type="button" data-d="7" aria-pressed="false">7 ngày</button>
+          <button type="button" data-d="30" aria-pressed="true">30 ngày</button>
+          <button type="button" data-d="90" aria-pressed="false">90 ngày</button>
+          <button type="button" data-d="month" aria-pressed="false">Tháng này</button>
+        </div>
+        <label class="sr-only" for="from">Từ ngày</label><input id="from" type="date" class="select" />
+        <label class="sr-only" for="to">Đến ngày</label><input id="to" type="date" class="select" />
+      </div>
+    </div>
+    <div class="kpis" id="kpi"><div class="kpi-skel"></div><div class="kpi-skel"></div><div class="kpi-skel"></div><div class="kpi-skel"></div></div>
+    <section class="panel"><div class="panel-h"><h2>Đơn thanh toán theo giờ trong ngày</h2><button class="btn btn-ghost btn-sm" type="button" data-exp="hour">⬇ CSV</button></div><div id="cHour" class="rp-chart" role="img" aria-label="Biểu đồ đơn theo giờ"></div><div class="rp-axis" id="aHour"></div></section>
+    <section class="panel"><div class="panel-h"><h2>Đơn thanh toán theo thứ trong tuần</h2></div><div id="dow"></div></section>
+    <section class="panel"><div class="panel-h"><h2>Khách hàng giá trị cao</h2><button class="btn btn-ghost btn-sm" type="button" data-exp="top">⬇ CSV</button></div>
+      <div class="table-wrap"><table class="tbl"><thead><tr><th>Khách hàng</th><th class="r">Đơn</th><th class="r">Vé</th><th class="r">Tổng chi</th><th>Đơn gần nhất</th></tr></thead><tbody id="top"></tbody></table></div></section>
+    <section class="panel"><div class="panel-h"><h2>Chuyển đổi đơn hàng</h2></div><div id="funnel"></div></section>
+    <section class="panel"><div class="panel-h"><h2>Phản hồi khách hàng</h2><a class="link" href="/Manage/Feedback">Mở trang phản hồi →</a></div><div id="fb"></div></section>
+    <p class="hint">Giờ/thứ tính theo múi giờ Việt Nam (UTC+7), theo thời điểm tạo đơn của các đơn <b>Đã thanh toán</b> có thu tiền (vé mời không tính).</p>
+  </div>
+</div>
+@section Scripts {
+  <script src="~/js/admin-common.js" asp-append-version="true"></script>
+  <script src="~/js/admin-insights.js" asp-append-version="true"></script>
+}

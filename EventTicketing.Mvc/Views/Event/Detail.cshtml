@@ -1,0 +1,13 @@
+@model Guid
+@{ ViewData["Title"] = "Chi tiết sự kiện"; }
+@section Head { <link rel="stylesheet" href="~/css/event-detail.css" asp-append-version="true" /> }
+<div class="wrap evd-wrap">
+  <div id="app" class="evd" data-event-id="@Model">
+    <div class="skel evd-skel-hero"></div>
+    <div class="evd-body">
+      <div class="evd-main"><div class="skel" style="height:260px"></div></div>
+      <div class="skel" style="height:300px"></div>
+    </div>
+  </div>
+</div>
+@section Scripts { <script src="~/js/event.js" asp-append-version="true"></script> }

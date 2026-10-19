@@ -1,0 +1,24 @@
+@{ ViewData["Title"] = "Quản lý người dùng"; ViewData["Active"] = "users"; ViewData["Heading"] = "Quản lý người dùng"; ViewData["Sub"] = "Khách hàng và quản trị viên: gán khách VIP, khoá tài khoản, đặt lại mật khẩu. Nhân viên soát vé có trang riêng."; }
+@section Head { <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" /> }
+<div class="wrap adm">
+  <partial name="_AdminHero" />
+  <div id="guard" class="panel" hidden style="margin-top:24px"></div>
+  <div id="content" class="adm-body">
+    <div class="adm-bar">
+      <div class="grow">
+        <label class="search"><span class="sr-only">Tìm người dùng</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="q" type="search" placeholder="Tìm theo email hoặc tên" autocomplete="off" /></label>
+        <select id="role" class="select" aria-label="Vai trò"><option value="">Khách &amp; Admin</option><option>Admin</option><option>User</option></select>
+        <select id="state" class="select" aria-label="Trạng thái"><option value="">Mọi trạng thái</option><option value="active">Đang hoạt động</option><option value="locked">Bị khoá</option><option value="unverified">Chưa xác thực</option><option value="vip">Khách VIP</option></select>
+      </div>
+      <a class="btn btn-ghost" href="/Manage/Staff">Quản lý nhân viên →</a>
+      <button class="btn btn-primary" type="button" id="newUser">+ Tạo tài khoản</button>
+    </div>
+    <section class="panel"><div class="table-wrap"><table class="tbl"><thead><tr><th>Người dùng</th><th>Vai trò</th><th>Trạng thái</th><th class="r">Đơn đã mua</th><th class="r">Chi tiêu</th><th></th></tr></thead><tbody id="rows"></tbody></table></div><div class="pager" id="pager"></div></section>
+  </div>
+</div>
+@section Scripts {
+  <script src="~/js/admin-common.js" asp-append-version="true"></script>
+  <script src="~/js/admin-users.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,38 @@
+@{ ViewData["Title"] = "Cửa hàng lưu niệm"; ViewData["Active"] = "shop"; ViewData["Heading"] = "Cửa hàng lưu niệm"; ViewData["Sub"] = "Quản lý sản phẩm (light stick, áo, phụ kiện) và xử lý đơn hàng của khách. Đơn thanh toán khi nhận hàng; huỷ đơn sẽ trả hàng về kho."; }
+@section Head {
+  <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+  <link rel="stylesheet" href="~/css/shop.css" asp-append-version="true" />
+}
+<div class="wrap adm">
+  <partial name="_AdminHero" />
+  <div id="guard" class="panel" hidden style="margin-top:24px"></div>
+  <div id="content" class="adm-body">
+    <div class="adm-bar">
+      <div class="grow sh-tabs" role="tablist" aria-label="Cửa hàng">
+        <button type="button" class="sh-tab" role="tab" id="tabP" aria-selected="true">Sản phẩm</button>
+        <button type="button" class="sh-tab" role="tab" id="tabO" aria-selected="false">Đơn hàng <span class="sh-n" id="newN" hidden></span></button>
+        <button type="button" class="sh-tab" role="tab" id="tabR" aria-selected="false">Đánh giá &amp; báo cáo <span class="sh-n" id="repN" hidden></span></button>
+      </div>
+      <button class="btn btn-primary" type="button" id="newP">+ Thêm sản phẩm</button>
+    </div>
+    <section class="panel" id="paneP"><div class="table-wrap"><table class="tbl">
+      <thead><tr><th>Sản phẩm</th><th>Danh mục</th><th>Giá</th><th>Tồn kho</th><th>Trạng thái</th><th></th></tr></thead>
+      <tbody id="rowsP"><tr><td colspan="6" class="empty">Đang tải…</td></tr></tbody></table></div></section>
+    <section class="panel" id="paneO" hidden>
+      <div class="adm-bar" style="margin-bottom:8px"><select id="stF" class="select" aria-label="Lọc trạng thái">
+        <option value="">Tất cả trạng thái</option><option value="New">Chờ xác nhận</option><option value="Confirmed">Đã xác nhận</option><option value="Shipping">Đang giao</option><option value="Done">Hoàn tất</option><option value="Cancelled">Đã huỷ</option></select></div>
+      <div class="table-wrap"><table class="tbl">
+        <thead><tr><th>Đơn</th><th>Khách nhận</th><th>Sản phẩm</th><th>Tổng</th><th>Trạng thái</th><th></th></tr></thead>
+        <tbody id="rowsO"><tr><td colspan="6" class="empty">Đang tải…</td></tr></tbody></table></div></section>
+    <section class="panel" id="paneR" hidden>
+      <div class="adm-bar" style="margin-bottom:8px"><select id="rvF" class="select" aria-label="Lọc đánh giá">
+        <option value="reported">Có báo cáo chưa xử lý</option><option value="all">Tất cả đánh giá</option><option value="hidden">Đã ẩn</option></select></div>
+      <div class="table-wrap"><table class="tbl">
+        <thead><tr><th>Khách &amp; sản phẩm</th><th>Đánh giá</th><th>Báo cáo</th><th></th></tr></thead>
+        <tbody id="rowsR"><tr><td colspan="4" class="empty">Đang tải…</td></tr></tbody></table></div></section>
+  </div>
+</div>
+@section Scripts {
+  <script src="~/js/admin-common.js" asp-append-version="true"></script>
+  <script src="~/js/admin-shop.js" asp-append-version="true"></script>
+}

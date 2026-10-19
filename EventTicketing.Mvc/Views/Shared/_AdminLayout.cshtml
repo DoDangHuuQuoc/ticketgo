@@ -1,0 +1,49 @@
+@inject Microsoft.Extensions.Configuration.IConfiguration SiteCfg
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0f1d44" />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" href="/img/favicon.png" />
+  <title>@ViewData["Title"] – TicketGo Quản trị</title>
+  <script>
+    // Khu quản trị chỉ dành cho Admin: nhân viên về khu nhân viên, khách về trang khách
+    (function () {
+      try {
+        var r = localStorage.getItem('role');
+        if (localStorage.getItem('jwt')) {
+          if (r === 'Staff') location.replace('/Staff/CheckIn');
+          else if (r === 'User') location.replace('/');
+        }
+      } catch (e) { }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="~/css/ui.css" asp-append-version="true" />
+  @await RenderSectionAsync("Head", required: false)
+</head>
+<body data-shell="admin">
+  <a class="skip" href="#main">Bỏ qua điều hướng</a>
+
+  @* Khu quản trị có khung riêng: không có thanh liên hệ, ô tìm kiếm, danh mục, chatbot hay chân trang của trang khách *@
+  <header class="site-header">
+    <div class="wrap bar">
+      <a class="brand" href="/Manage/Dashboard" aria-label="TicketGo – Quản trị"><img src="/img/logo-wordmark.png" alt="TicketGo" width="185" height="52" /></a>
+      <span class="adm-brand-tag">Quản trị</span>
+      <nav class="nav" id="nav" aria-label="Tài khoản"></nav>
+      <button class="burger" type="button" id="burger" aria-label="Mở menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main id="main">@RenderBody()</main>
+
+  <div id="toast" class="toasts" popover="manual" role="status" aria-live="polite"></div>
+  <script>window.API_BASE = @Html.Raw(System.Text.Json.JsonSerializer.Serialize((SiteCfg["Api:BaseUrl"] ?? "").Trim().TrimEnd('/')));</script>
+  <script src="~/js/app.js" asp-append-version="true"></script>
+  @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

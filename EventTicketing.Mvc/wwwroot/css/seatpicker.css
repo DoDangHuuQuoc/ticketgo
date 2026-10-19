@@ -1,0 +1,22 @@
+.sp { margin-top: 14px; }
+.sp-legend { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 8px; font-size: .8rem; color: #66758f; }
+.sp-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sp-legend .sp-seat { width: 16px; height: 16px; flex-basis: 16px; cursor: default; }
+.sp-stage { margin-bottom: 10px; padding: 6px; border-radius: 8px; background: rgba(102, 117, 143, .14); color: #66758f; font-size: .76rem; font-weight: 700; letter-spacing: .06em; text-align: center; text-transform: uppercase; }
+.sp-scroll { max-height: 340px; padding: 10px; overflow: auto; border: 1px solid rgba(102, 117, 143, .3); border-radius: 12px; }
+.sp-grid { display: inline-block; min-width: 100%; }
+.sp-row { display: flex; align-items: center; gap: 4px; margin-bottom: 4px; }
+.sp-rl { flex: 0 0 28px; color: #66758f; font-size: .75rem; font-weight: 700; text-align: center; }
+.sp-seat { flex: 0 0 30px; width: 30px; height: 30px; padding: 0; border: 1px solid #9aa7bd; border-radius: 7px 7px 4px 4px; background: transparent; color: inherit; font-size: .7rem; cursor: pointer; }
+.sp-seat:hover:not(:disabled) { border-color: #3563e9; }
+.sp-seat.on { border-color: #3563e9; background: #3563e9; color: #fff; font-weight: 700; }
+.sp-seat.off { border-color: transparent; background: rgba(102, 117, 143, .35); color: transparent; cursor: not-allowed; }
+.sp-sum { margin: 10px 0 0; font-size: .9rem; font-weight: 600; }
+.sp-load, .sp-err { margin: 12px 0; font-size: .9rem; }
+.sp-err { color: #c0392b; }
+.sp-note { margin: 10px 0 0; padding: 10px 12px; border-radius: 10px; background: rgba(53, 99, 233, .1); font-size: .88rem; }
+.seat-tag { display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 999px; background: rgba(53, 99, 233, .12); color: #3563e9; font-size: .72rem; font-weight: 700; }
+
+/* Bước "Chọn ghế" ở cột trái rộng: sơ đồ cao hơn, cuộn ngang khi hàng dài */
+.seat-step .sp { margin-top: 0; }
+.seat-step .sp-scroll { max-height: 70vh; }

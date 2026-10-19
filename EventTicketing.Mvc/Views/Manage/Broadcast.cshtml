@@ -1,0 +1,29 @@
+@{ ViewData["Title"] = "Email hàng loạt"; ViewData["Active"] = "broadcast"; ViewData["Heading"] = "Email hàng loạt"; ViewData["Sub"] = "Gửi thông báo, khuyến mãi hoặc nhắc lịch tới một nhóm khách. Việc gửi chạy nền và có lịch sử."; }
+@section Head { <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" /> }
+<div class="wrap adm">
+  <partial name="_AdminHero" />
+  <div id="guard" class="panel" hidden style="margin-top:24px"></div>
+  <div id="content" class="adm-body">
+    <section class="panel"><div class="panel-h"><h2>Soạn email</h2></div>
+      <form id="form" novalidate>
+        <div class="grid2">
+          <div class="field"><label for="aud">Gửi cho</label><select id="aud" class="select" style="width:100%">
+            <option value="buyers">Khách đã từng mua vé</option><option value="event">Khách đã mua một sự kiện cụ thể</option>
+            <option value="nobuy">Có tài khoản nhưng chưa mua vé</option><option value="all">Tất cả tài khoản đã xác thực</option></select></div>
+          <div class="field" id="evW" hidden><label for="ev">Sự kiện</label><select id="ev" class="select" style="width:100%"></select></div>
+          <div class="field full"><label for="sub">Tiêu đề</label><input id="sub" maxlength="150" placeholder="VD: Ưu đãi vé đợt 2 cho khách quen" /></div>
+          <div class="field full"><label for="msg">Nội dung (dùng <code>{{name}}</code> để chèn tên khách)</label><textarea id="msg" rows="8" maxlength="3000" placeholder="Nội dung email…"></textarea></div>
+        </div>
+        <p class="muted" id="count">Đang đếm người nhận…</p>
+        <p class="hint">Chỉ gửi cho tài khoản đã xác thực email và không bị khoá. Hãy bấm “Gửi thử” cho chính bạn trước. Email quảng bá cần tuân thủ quy định về thư rác — chỉ gửi nội dung liên quan tới dịch vụ khách đã sử dụng.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-ghost" type="button" id="test">Gửi thử cho tôi</button><button class="btn btn-primary" type="submit" id="go">Gửi hàng loạt</button></div>
+      </form>
+    </section>
+    <section class="panel"><div class="panel-h"><h2>Lịch sử các đợt gửi</h2><button class="btn btn-ghost btn-sm" type="button" id="reload">Tải lại</button></div>
+      <div class="table-wrap"><table class="tbl"><thead><tr><th>Thời gian</th><th>Tiêu đề</th><th>Nhóm</th><th class="r">Kết quả</th><th>Trạng thái</th></tr></thead><tbody id="rows"><tr><td colspan="5" class="empty">Đang tải…</td></tr></tbody></table></div></section>
+  </div>
+</div>
+@section Scripts {
+  <script src="~/js/admin-common.js" asp-append-version="true"></script>
+  <script src="~/js/admin-broadcast.js" asp-append-version="true"></script>
+}

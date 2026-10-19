@@ -1,0 +1,29 @@
+@{ ViewData["Title"] = "Chat trực tiếp"; ViewData["Active"] = "livechat"; ViewData["Heading"] = "Chat trực tiếp"; ViewData["Sub"] = "Trả lời khách ngay trong lúc họ đang xem trang. Giữ trang này mở để khách thấy bạn đang trực tuyến."; }
+@section Head { <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" /> }
+<div class="wrap adm">
+  <partial name="_AdminHero" />
+  <div id="guard" class="panel" hidden style="margin-top:24px"></div>
+  <div id="content" class="adm-body">
+    <div class="lc">
+      <section class="panel lc-list" aria-label="Danh sách cuộc chat">
+        <div class="lc-list-h"><b>Cuộc chat</b><span class="muted" id="lcCount"></span></div>
+        <ul id="lcItems" class="lc-items"><li class="empty">Đang tải…</li></ul>
+      </section>
+      <section class="panel lc-conv" aria-label="Nội dung cuộc chat">
+        <div id="lcEmpty" class="empty">Chọn một cuộc chat bên trái để bắt đầu trả lời.</div>
+        <div id="lcConv" hidden>
+          <header class="lc-conv-h"><div><b id="lcName"></b><small id="lcMeta"></small></div><button type="button" class="btn btn-ghost btn-sm" id="lcClose">Đóng cuộc chat</button></header>
+          <div class="lc-msgs" id="lcMsgs" aria-live="polite"></div>
+          <form class="lc-form" id="lcForm" autocomplete="off">
+            <textarea id="lcText" rows="2" maxlength="1000" placeholder="Nhập tin nhắn… (Enter để gửi, Shift+Enter xuống dòng)" aria-label="Tin nhắn"></textarea>
+            <button class="btn btn-primary" type="submit">Gửi</button>
+          </form>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+@section Scripts {
+  <script src="~/js/admin-common.js" asp-append-version="true"></script>
+  <script src="~/js/admin-livechat.js" asp-append-version="true"></script>
+}

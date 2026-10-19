@@ -1,0 +1,27 @@
+@{ ViewData["Title"] = "Quản lý sự kiện"; ViewData["Active"] = "events"; ViewData["Heading"] = "Quản lý sự kiện"; ViewData["Sub"] = "Tạo sự kiện, cấu hình loại vé, giá, số lượng và bật/tắt bán."; }
+@section Head { <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" /> }
+<div class="wrap adm">
+  <partial name="_AdminHero" />
+  <div id="guard" class="panel" hidden style="margin-top:24px"></div>
+  <div id="content" class="adm-body">
+    <div class="adm-bar">
+      <div class="grow">
+        <label class="search"><span class="sr-only">Tìm sự kiện</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="q" type="search" placeholder="Tìm theo tên hoặc địa điểm" autocomplete="off" /></label>
+        <div class="chips wrap-chips" id="chips" role="group" aria-label="Lọc trạng thái">
+          <button type="button" data-s="" aria-pressed="true">Tất cả</button>
+          <button type="button" data-s="upcoming" aria-pressed="false">Sắp diễn ra</button>
+          <button type="button" data-s="draft" aria-pressed="false">Bản nháp</button>
+          <button type="button" data-s="past" aria-pressed="false">Đã diễn ra</button>
+        </div>
+      </div>
+      <button class="btn btn-primary" type="button" id="newEv">+ Tạo sự kiện</button>
+    </div>
+    <section class="panel"><div class="table-wrap"><table class="tbl"><thead><tr><th>Sự kiện</th><th>Thời gian</th><th>Vé đã bán</th><th class="r">Doanh thu</th><th>Trạng thái</th><th></th></tr></thead><tbody id="rows"><tr><td colspan="6" class="empty">Đang tải…</td></tr></tbody></table></div></section>
+  </div>
+</div>
+@section Scripts {
+  <script src="~/js/admin-common.js" asp-append-version="true"></script>
+  <script src="~/js/admin-events.js" asp-append-version="true"></script>
+}

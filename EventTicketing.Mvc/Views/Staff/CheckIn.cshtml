@@ -1,0 +1,52 @@
+@{ ViewData["Title"] = "Soát vé"; }
+@section Head {
+  <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+  <link rel="stylesheet" href="~/css/staff.css" asp-append-version="true" />
+}
+<div class="wrap stf">
+  <header class="adm-hero">
+    <div class="adm-hero-top">
+      <div>
+        <h1>Soát vé tại cổng</h1>
+        <p>Quét mã QR hoặc nhập mã vé để cho khách vào.</p>
+      </div>
+      <div class="head-tools"><label class="sr-only" for="ev">Sự kiện đang soát</label><select id="ev" class="select"></select></div>
+    </div>
+  </header>
+
+  <div id="guard" class="panel" hidden style="margin-top:24px"></div>
+  <div class="scan" id="content">
+    <section class="stack" aria-label="Quét mã">
+      <div class="viewfinder">
+        <div id="reader"></div>
+        <span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span>
+        <p class="vf-idle" id="vfIdle">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V6a2 2 0 0 1 2-2h2M17 4h2a2 2 0 0 1 2 2v2M21 16v2a2 2 0 0 1-2 2h-2M7 20H5a2 2 0 0 1-2-2v-2"/><path d="M8 12h8"/></svg>
+          Camera đang tắt
+        </p>
+      </div>
+      <button class="btn btn-ink btn-block" type="button" id="start">Bật camera</button>
+      <label class="btn btn-ghost btn-block" for="shot" style="cursor:pointer">Chụp / chọn ảnh mã QR</label>
+      <input id="shot" type="file" accept="image/*" capture="environment" hidden />
+      <div id="fileReader" hidden></div>
+      <form class="manual" id="manualForm">
+        <label class="sr-only" for="manual">Nhập mã vé</label>
+        <input id="manual" placeholder="Hoặc nhập Mã vé (8 ký tự) / dán mã QR" autocomplete="off" />
+        <button class="btn btn-ghost" type="submit">Kiểm tra</button>
+      </form>
+    </section>
+    <section class="stack" aria-label="Kết quả">
+      <div id="result" class="verdict idle" role="status" aria-live="assertive"><div><div class="big">Sẵn sàng</div><p>Hướng camera vào mã QR trên vé.</p></div></div>
+      <div class="scan-stats" aria-label="Thống kê phiên soát vé">
+        <div><b id="stAll">0</b><span>Tổng lượt</span></div>
+        <div class="ok"><b id="stOk">0</b><span>Hợp lệ</span></div>
+        <div class="no"><b id="stNo">0</b><span>Từ chối</span></div>
+      </div>
+      <div class="panel"><div class="panel-h"><h2>Lượt quét gần đây</h2><span class="muted" id="count">0 lượt</span></div><ul class="log" id="log"><li class="muted">Chưa có lượt quét nào.</li></ul></div>
+    </section>
+  </div>
+</div>
+@section Scripts {
+  <script src="~/lib/html5-qrcode.min.js"></script>
+  <script src="~/js/checkin.js" asp-append-version="true"></script>
+}

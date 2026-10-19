@@ -1,0 +1,29 @@
+@{ ViewData["Title"] = "Phản hồi khách hàng"; ViewData["Active"] = "feedback"; ViewData["Heading"] = "Phản hồi khách hàng"; ViewData["Sub"] = "Yêu cầu hỗ trợ khách gửi qua chatbot. Trả lời tại đây — khách nhận email và xem được trong khung chat."; }
+@section Head { <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" /> }
+<div class="wrap adm">
+  <partial name="_AdminHero" />
+  <div id="guard" class="panel" hidden style="margin-top:24px"></div>
+  <div id="content" class="adm-body">
+    <div class="adm-bar">
+      <div class="grow">
+        <label class="search"><span class="sr-only">Tìm phản hồi</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="q" type="search" placeholder="Tên, email hoặc nội dung" autocomplete="off" /></label>
+        <select id="status" class="select" aria-label="Trạng thái">
+          <option value="">Mọi trạng thái</option><option value="New">Mới</option><option value="InProgress">Đang xử lý</option><option value="Resolved">Đã trả lời / xong</option>
+        </select>
+        <select id="cat" class="select" aria-label="Chủ đề">
+          <option value="">Mọi chủ đề</option><option value="Order">Đơn hàng</option><option value="Payment">Thanh toán</option><option value="Ticket">Vé / email vé</option><option value="Refund">Hoàn / đổi vé</option><option value="Event">Sự kiện</option><option value="Other">Khác</option>
+        </select>
+      </div>
+      <span class="muted" id="counts"></span>
+    </div>
+    <section class="panel"><div class="table-wrap"><table class="tbl">
+      <thead><tr><th>Khách hàng</th><th>Chủ đề</th><th>Nội dung</th><th>Trạng thái</th><th>Gửi lúc</th><th></th></tr></thead>
+      <tbody id="rows"><tr><td colspan="6" class="empty">Đang tải…</td></tr></tbody></table></div><div class="pager" id="pager"></div></section>
+  </div>
+</div>
+@section Scripts {
+  <script src="~/js/admin-common.js" asp-append-version="true"></script>
+  <script src="~/js/admin-feedback.js" asp-append-version="true"></script>
+}

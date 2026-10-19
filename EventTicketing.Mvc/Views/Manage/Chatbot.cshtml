@@ -1,0 +1,27 @@
+@{ ViewData["Title"] = "Quản lý chatbot"; ViewData["Active"] = "chatbot"; ViewData["Heading"] = "Quản lý chatbot"; ViewData["Sub"] = "Soạn câu hỏi–đáp cho chatbot, xem thống kê và các câu bot chưa trả lời được."; }
+@section Head { <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" /> }
+<div class="wrap adm">
+  <partial name="_AdminHero" />
+  <div id="guard" class="panel" hidden style="margin-top:24px"></div>
+  <div id="content" class="adm-body">
+    <div class="adm-bar">
+      <div class="grow">
+        <select id="days" class="select" aria-label="Khoảng thống kê"><option value="7">7 ngày</option><option value="30" selected>30 ngày</option><option value="90">90 ngày</option></select>
+        <span class="muted" id="logInfo"></span>
+      </div>
+      <button class="btn btn-ghost" type="button" id="purge">Xoá nhật ký cũ</button>
+      <button class="btn btn-primary" type="button" id="newFaq">+ Thêm câu hỏi–đáp</button>
+    </div>
+    <div class="kpis" id="kpi"><div class="kpi-skel"></div><div class="kpi-skel"></div><div class="kpi-skel"></div><div class="kpi-skel"></div></div>
+    <section class="panel"><div class="panel-h"><h2>Câu hỏi–đáp do bạn soạn</h2><span class="muted">Ưu tiên hơn câu trả lời có sẵn của bot. Khớp theo từ khoá, không phân biệt dấu/hoa thường.</span></div>
+      <div class="table-wrap"><table class="tbl"><thead><tr><th>Câu hỏi</th><th>Từ khoá</th><th>Trả lời</th><th class="r">Lượt khớp</th><th>Trạng thái</th><th></th></tr></thead><tbody id="faqRows"><tr><td colspan="6" class="empty">Đang tải…</td></tr></tbody></table></div></section>
+    <section class="panel"><div class="panel-h"><h2>Câu bot chưa trả lời được</h2><span class="muted">Bấm “Tạo FAQ” để dạy bot câu trả lời cho các câu này.</span></div>
+      <div class="table-wrap"><table class="tbl"><thead><tr><th>Câu hỏi của khách</th><th class="r">Số lần</th><th></th></tr></thead><tbody id="unRows"></tbody></table></div></section>
+    <section class="panel"><div class="panel-h"><h2>Lượt hỏi theo ngày</h2></div><div id="chart" class="rp-chart" role="img" aria-label="Biểu đồ lượt hỏi theo ngày"></div><div class="rp-axis" id="axis"></div></section>
+    <p class="hint">Nhật ký chỉ lưu nội dung câu hỏi (không kèm email/tên). Nên xoá định kỳ các nhật ký cũ.</p>
+  </div>
+</div>
+@section Scripts {
+  <script src="~/js/admin-common.js" asp-append-version="true"></script>
+  <script src="~/js/admin-chatbot.js" asp-append-version="true"></script>
+}

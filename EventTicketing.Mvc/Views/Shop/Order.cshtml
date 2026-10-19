@@ -1,0 +1,9 @@
+@model Guid
+@{ ViewData["Title"] = "Chi tiết đơn hàng"; }
+@section Head { <link rel="stylesheet" href="~/css/shop.css" asp-append-version="true" /> }
+<div class="wrap sh-page">
+  <div id="app" class="sh-od" data-order-id="@Model">
+    <div class="skel" style="height:320px;border-radius:20px"></div>
+  </div>
+</div>
+@section Scripts { <script src="~/js/shop-reviews.js" asp-append-version="true"></script> <script src="~/js/shop-order.js" asp-append-version="true"></script> }

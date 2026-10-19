@@ -1,0 +1,109 @@
+@{ ViewData["Title"] = "Sự kiện"; }
+@section Head { <link rel="stylesheet" href="~/css/favorites.css" asp-append-version="true" /> }
+<section class="banner-hero">
+  <div class="wrap banner-in">
+    <div class="hero-intro">
+      <span class="pill">Mùa sự kiện đang mở bán</span>
+      <h1>Săn vé ca nhạc &amp; thể thao, <em>giữ chỗ trong 10 phút</em></h1>
+      <p class="lead">Chọn sự kiện, bấm vào khu trên sơ đồ để xem giá, thanh toán xong là có mã QR trong email.</p>
+      <div class="hero-actions"><a class="btn btn-primary" href="#all-title">Xem sự kiện</a><a class="btn btn-outline" href="/?st=avail">Sự kiện còn vé</a></div>
+    </div>
+    <div id="hero"><div class="skel hero-skel"></div></div>
+  </div>
+  <div class="wrap perks" aria-label="Lợi ích">
+    <div><i><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></svg></i><b>Giữ chỗ tức thì</b><span>Vé được giữ 10 phút khi thanh toán</span></div>
+    <div><i><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20v.01M20 20h-3v-3"/></svg></i><b>Vé QR điện tử</b><span>Gửi email, không cần in</span></div>
+    <div><i><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.2 8 8 9 4.8-1 8-4.5 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></i><b>Thanh toán an toàn</b><span>Xác nhận tự động, vé gửi qua email</span></div>
+    <div><i><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="2" y="14" width="5" height="6" rx="2"/><rect x="17" y="14" width="5" height="6" rx="2"/></svg></i><b>Hỗ trợ mọi lúc</b><span>Hotline 1900 6408</span></div>
+  </div>
+</section>
+
+<section class="wrap fb" id="filter" aria-labelledby="fb-title">
+  <h2 class="sr-only" id="fb-title">Tìm và lọc sự kiện</h2>
+  <div class="fb-top">
+    <label class="search fb-search"><span class="sr-only">Tìm sự kiện</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Tìm theo tên sự kiện hoặc địa điểm" autocomplete="off" /></label>
+    <label class="fb-sort"><span>Sắp xếp</span>
+      <select id="fSort" class="select">
+        <option value="date">Diễn ra sớm nhất</option><option value="priceAsc">Giá thấp → cao</option><option value="priceDesc">Giá cao → thấp</option><option value="avail">Còn nhiều vé nhất</option>
+      </select></label>
+    <button type="button" class="btn btn-ghost fb-toggle" id="fbToggle" aria-expanded="false" aria-controls="fbPanel"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>Bộ lọc<span class="fb-n" id="fbN" hidden></span></button>
+  </div>
+
+  <div class="fb-panel" id="fbPanel">
+    <div class="fb-group"><span class="fb-lab" id="lCat">Loại sự kiện</span>
+      <div class="chips" id="catChips" role="group" aria-labelledby="lCat">
+        <button type="button" data-c="Concert" aria-pressed="false">Ca nhạc</button><button type="button" data-c="Sport" aria-pressed="false">Thể thao</button><button type="button" data-c="Theatre" aria-pressed="false">Sân khấu</button>
+      </div></div>
+    <div class="fb-group"><span class="fb-lab" id="lWhen">Thời gian</span>
+      <div class="chips" id="whenChips" role="radiogroup" aria-labelledby="lWhen">
+        <button type="button" role="radio" data-w="all" aria-checked="true">Mọi lúc</button><button type="button" role="radio" data-w="today" aria-checked="false">Hôm nay</button>
+        <button type="button" role="radio" data-w="weekend" aria-checked="false">Cuối tuần này</button><button type="button" role="radio" data-w="7d" aria-checked="false">7 ngày tới</button>
+        <button type="button" role="radio" data-w="30d" aria-checked="false">30 ngày tới</button><button type="button" role="radio" data-w="custom" aria-checked="false">Chọn ngày</button>
+      </div>
+      <div class="fb-dates" id="fbDates" hidden>
+        <label>Từ ngày<input id="dFrom" type="date" /></label><label>Đến ngày<input id="dTo" type="date" /></label>
+      </div></div>
+    <div class="fb-group"><span class="fb-lab" id="lPrice">Giá vé thấp nhất</span>
+      <div class="chips" id="priceChips" role="radiogroup" aria-labelledby="lPrice">
+        <button type="button" role="radio" data-p="" aria-checked="true">Mọi mức giá</button><button type="button" role="radio" data-p="0-500000" aria-checked="false">Dưới 500k</button>
+        <button type="button" role="radio" data-p="500000-1000000" aria-checked="false">500k – 1 triệu</button><button type="button" role="radio" data-p="1000000-2000000" aria-checked="false">1 – 2 triệu</button>
+        <button type="button" role="radio" data-p="2000000-" aria-checked="false">Trên 2 triệu</button>
+      </div></div>
+    <div class="fb-group"><span class="fb-lab" id="lSt">Tình trạng vé</span>
+      <div class="chips" id="stChips" role="radiogroup" aria-labelledby="lSt">
+        <button type="button" role="radio" data-s="all" aria-checked="true">Tất cả</button><button type="button" role="radio" data-s="avail" aria-checked="false">Còn vé</button><button type="button" role="radio" data-s="low" aria-checked="false">Sắp hết vé</button>
+      </div></div>
+  </div>
+
+  <div class="fb-bar" id="fbBar" hidden>
+    <span class="fb-bar-lab">Đang lọc:</span>
+    <div class="fb-active" id="fbActive"></div>
+    <button type="button" class="btn btn-ghost btn-sm" id="advReset">Xoá tất cả</button>
+  </div>
+</section>
+
+<section class="wrap hm-sec" id="lowSec" aria-labelledby="low-title" hidden>
+  <div class="toolbar"><h2 id="low-title">Sắp hết vé</h2><span class="muted">Còn rất ít chỗ, nhanh tay kẻo lỡ</span></div>
+  <div id="lowList" class="grid-events"></div>
+</section>
+
+<section class="wrap hm-sec" id="soonSec" aria-labelledby="soon-title" hidden>
+  <div class="toolbar"><h2 id="soon-title">Sắp diễn ra</h2><span class="muted">Diễn ra trong 14 ngày tới</span></div>
+  <div id="soonList" class="grid-events"></div>
+</section>
+
+<section class="wrap hm-sec" id="recentSec" aria-labelledby="recent-title" hidden>
+  <div class="toolbar"><h2 id="recent-title">Bạn đã xem gần đây</h2><button type="button" class="btn btn-ghost btn-sm" id="recentClear">Xoá lịch sử</button></div>
+  <div id="recentList" class="grid-events"></div>
+</section>
+
+<section class="wrap hm-sec" id="artSec" aria-labelledby="art-title" hidden>
+  <div class="toolbar"><h2 id="art-title">Nghệ sĩ yêu thích</h2><a class="link" href="/Favorites">Xem tất cả &amp; chấm sao →</a></div>
+  <div id="artList" class="fv-grid fv-home"></div>
+</section>
+
+<section class="wrap" aria-labelledby="all-title">
+  <div class="toolbar"><h2 id="all-title">Tất cả sự kiện</h2><span class="muted adv-count" id="count" role="status"></span></div>
+  <div id="list" class="grid-events"></div>
+</section>
+
+<section class="wrap how" aria-labelledby="how-title">
+  <div class="toolbar"><h2 id="how-title">Đặt vé nhanh trong 3 bước</h2><span class="muted">Không cần in vé, không cần bấm xác nhận sau khi chuyển tiền</span></div>
+  <ol class="how-steps">
+    <li><b>Chọn sự kiện và khu vé</b><span>Bấm vào khu trên sơ đồ để xem giá và số vé còn lại. Vé được giữ cho bạn 10 phút.</span></li>
+    <li><b>Quét mã QR để thanh toán</b><span>Mã VietQR đã điền sẵn số tiền và nội dung chuyển khoản, dùng được với mọi app ngân hàng.</span></li>
+    <li><b>Nhận vé điện tử tự động</b><span>Tiền về là trang tự mở vé có mã QR, đồng thời vé được gửi vào email của bạn.</span></li>
+  </ol>
+  <div class="how-faq">
+    <details><summary>Vé được giữ trong bao lâu?</summary><p>Sau khi chọn vé, bạn có 10 phút để thanh toán. Hết thời gian, vé được trả lại kho và bạn có thể chọn lại.</p></details>
+    <details><summary>Thanh toán xong tôi nhận vé ở đâu?</summary><p>Trang thanh toán tự chuyển sang vé có mã QR khi hệ thống nhận được tiền. Vé cũng nằm trong mục <a class="link" href="/Account/MyBookings">Vé của tôi</a> và được gửi qua email.</p></details>
+    <details><summary>Tôi cần giữ nguyên nội dung chuyển khoản không?</summary><p>Có. Nội dung chuyển khoản là mã đơn, hệ thống dựa vào đó để biết bạn đang thanh toán cho đơn nào. Quét mã QR là cách dễ nhất vì nội dung đã điền sẵn.</p></details>
+    <details><summary>Cần hỗ trợ khi thanh toán?</summary><p>Gọi hotline 1900 6408 hoặc dùng khung chat ở góc màn hình.</p></details>
+  </div>
+</section>
+@section Scripts {
+  <script src="~/js/favorites.js" asp-append-version="true"></script>
+  <script src="~/js/home.js" asp-append-version="true"></script>
+}

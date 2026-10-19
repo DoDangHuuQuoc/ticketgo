@@ -1,0 +1,16 @@
+@{ ViewData["Title"] = "Khuyến mãi"; }
+<div class="wrap">
+  <div class="page-head">
+    <div>
+      <h1>Khuyến mãi &amp; voucher</h1>
+      <p class="muted" style="margin:6px 0 0">Lưu voucher vào ví, đến lúc thanh toán chỉ cần chọn.</p>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Khuyến mãi">
+      <button role="tab" id="tab-all" aria-selected="true" aria-controls="pane-all">Khuyến mãi</button>
+      <button role="tab" id="tab-mine" aria-selected="false" aria-controls="pane-mine">Voucher của tôi <span class="tab-n" id="mineN" hidden></span></button>
+    </div>
+  </div>
+  <section id="pane-all" role="tabpanel" aria-labelledby="tab-all"></section>
+  <section id="pane-mine" role="tabpanel" aria-labelledby="tab-mine" hidden></section>
+</div>
+@section Scripts { <script src="~/js/promotions.js" asp-append-version="true"></script> }

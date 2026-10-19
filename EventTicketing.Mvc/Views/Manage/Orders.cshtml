@@ -1,0 +1,26 @@
+@{ ViewData["Title"] = "Quản lý đơn hàng"; ViewData["Active"] = "orders"; ViewData["Heading"] = "Quản lý đơn hàng"; ViewData["Sub"] = "Tra cứu đơn, xác nhận chuyển khoản, huỷ giữ chỗ, hoàn tiền, phát vé mời và gửi lại vé qua email."; }
+@section Head { <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" /><link rel="stylesheet" href="~/css/seatpicker.css" asp-append-version="true" /> }
+<div class="wrap adm">
+  <partial name="_AdminHero" />
+  <div id="guard" class="panel" hidden style="margin-top:24px"></div>
+  <div id="content" class="adm-body">
+    <div class="adm-bar">
+      <div class="grow">
+        <label class="search"><span class="sr-only">Tìm đơn</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="q" type="search" placeholder="Email, tên hoặc mã đơn" autocomplete="off" /></label>
+        <select id="ev" class="select" aria-label="Sự kiện"><option value="">Mọi sự kiện</option></select>
+        <label class="sr-only" for="from">Từ ngày</label><input id="from" type="date" class="select" />
+        <label class="sr-only" for="to">Đến ngày</label><input id="to" type="date" class="select" />
+      </div>
+      <div class="acts"><button class="btn btn-ghost" type="button" id="invite">🎟 Phát vé mời</button><button class="btn btn-ghost" type="button" id="export">⬇ Xuất CSV</button></div>
+    </div>
+    <div class="chips wrap-chips" id="chips" role="group" aria-label="Lọc trạng thái" style="margin-bottom:14px"></div>
+    <section class="panel"><div class="table-wrap"><table class="tbl"><thead><tr><th>Mã đơn</th><th>Khách hàng</th><th>Sự kiện / loại vé</th><th class="r">Tổng tiền</th><th>Trạng thái</th><th>Tạo lúc</th></tr></thead><tbody id="rows"></tbody></table></div><div class="pager" id="pager"></div></section>
+  </div>
+</div>
+@section Scripts {
+  <script src="~/js/admin-common.js" asp-append-version="true"></script>
+  <script src="~/js/seatpicker.js" asp-append-version="true"></script>
+  <script src="~/js/admin-orders.js" asp-append-version="true"></script>
+}

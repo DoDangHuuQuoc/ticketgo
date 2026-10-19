@@ -1,0 +1,18 @@
+@{ ViewData["Title"] = "Vé của tôi"; }
+<div class="wrap">
+  <div class="page-head">
+    <h1>Vé của tôi</h1>
+    <div class="tabs" role="tablist" aria-label="Vé và đơn hàng">
+      <button role="tab" id="tab-tickets" aria-selected="true" aria-controls="pane-tickets">Vé</button>
+      <button role="tab" id="tab-orders" aria-selected="false" aria-controls="pane-orders">Đơn hàng</button>
+    </div>
+  </div>
+  <section id="pane-tickets" role="tabpanel" aria-labelledby="tab-tickets" class="wallet"></section>
+  <section id="pane-orders" role="tabpanel" aria-labelledby="tab-orders" class="wallet" hidden></section>
+</div>
+<dialog id="qrDialog" class="qr-modal" aria-label="Mã QR phóng to">
+  <img id="qrBig" alt="Mã QR của vé" />
+  <p class="muted center" id="qrCap"></p>
+  <button class="btn btn-ink btn-block" type="button" id="qrClose">Đóng</button>
+</dialog>
+@section Scripts { <script src="~/js/bookings.js" asp-append-version="true"></script> }

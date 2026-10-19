@@ -1,0 +1,12 @@
+@model Guid
+@{ ViewData["Title"] = "Thanh toán"; }
+@section Head { <link rel="stylesheet" href="~/css/checkout.css" asp-append-version="true" /> }
+<div class="ck-page">
+  <div class="wrap">
+    <div id="app" class="ck" data-booking-id="@Model">
+      <div class="skel ck-skel" style="height:64px"></div>
+      <div class="ck-grid"><div class="skel ck-skel" style="height:420px"></div><div class="skel ck-skel" style="height:420px"></div></div>
+    </div>
+  </div>
+</div>
+@section Scripts { <script src="~/js/checkout.js" asp-append-version="true"></script> }

@@ -1,0 +1,55 @@
+@{ ViewData["Title"] = "Quản trị"; }
+@section Head { <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" /> }
+<div class="wrap adm">
+  @{ ViewData["Active"] = "dash"; }
+  <partial name="_AdminSide" />
+  <header class="adm-hero">
+    <div class="adm-hero-top">
+      <div>
+        <h1>Bảng điều khiển</h1>
+        <p class="live"><i aria-hidden="true"></i><span id="updated">Đang tải số liệu…</span></p>
+      </div>
+      <div class="head-tools">
+        <label class="sr-only" for="ev">Chọn sự kiện</label>
+        <select id="ev" class="select"></select>
+        <label class="check"><input type="checkbox" id="auto" checked /> Tự làm mới</label>
+      </div>
+    </div>
+  </header>
+
+  <div id="guard" class="panel" hidden style="margin-top:24px"></div>
+  <div id="content">
+    <section class="panel mt" id="mt" aria-labelledby="mtTitle">
+      <div class="mt-row">
+        <div>
+          <h2 id="mtTitle">Chế độ bảo trì trang web</h2>
+          <p class="mt-state" id="mtState" role="status">Đang tải…</p>
+        </div>
+        <button class="btn btn-danger" type="button" id="mtToggle" disabled>Bật bảo trì</button>
+      </div>
+      <form class="mt-msg" id="mtForm" novalidate>
+        <label class="sr-only" for="mtText">Lời nhắn hiển thị cho khách</label>
+        <input id="mtText" class="inp" maxlength="500" placeholder="Lời nhắn hiển thị cho khách khi bảo trì" autocomplete="off" />
+        <button class="btn btn-ghost" type="submit" id="mtSave">Lưu lời nhắn</button>
+      </form>
+    </section>
+    <div class="kpis" id="kpi"><div class="kpi-skel"></div><div class="kpi-skel"></div><div class="kpi-skel"></div><div class="kpi-skel"></div></div>
+    <div style="margin-bottom:20px">
+      <section class="panel" aria-labelledby="revTitle">
+        <div class="panel-h"><h2 id="revTitle">Doanh thu</h2>
+          <div class="chips" id="chartMode" role="group" aria-label="Khoảng thời gian"><button type="button" data-m="hour" aria-pressed="true">Theo giờ (hôm nay)</button><button type="button" data-m="day" aria-pressed="false">Theo ngày</button></div></div>
+        <p class="sub chart-sub" id="chartSub"></p>
+        <div id="chart" class="chart"></div>
+      </section>
+    </div>
+    <div class="two" style="margin-top:20px">
+      <section class="panel" aria-labelledby="stTitle"><div class="panel-h"><h2 id="stTitle">Đơn hàng theo trạng thái</h2><a class="link" href="/Manage/Orders">Xem đơn</a></div><div id="byStatus"></div></section>
+      <section class="panel" aria-labelledby="tpTitle"><div class="panel-h"><h2 id="tpTitle">Doanh thu theo loại vé</h2></div><div id="byType"></div></section>
+    </div>
+    <div class="two" style="margin-top:20px">
+      <section class="panel" aria-labelledby="teTitle"><div class="panel-h"><h2 id="teTitle">Sự kiện doanh thu cao nhất</h2></div><div id="topEvents"><p class="muted">Chọn “Tất cả sự kiện” để xem xếp hạng.</p></div></section>
+      <section class="panel" aria-labelledby="acTitle"><div class="panel-h"><h2 id="acTitle">Hoạt động gần đây</h2><a class="link" href="/Manage/Audit">Xem tất cả</a></div><ul class="feed" id="feed"><li class="muted">Đang tải…</li></ul></section>
+    </div>
+  </div>
+</div>
+@section Scripts { <script src="~/js/admin.js" asp-append-version="true"></script> }

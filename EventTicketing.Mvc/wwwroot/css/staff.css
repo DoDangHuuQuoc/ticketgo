@@ -1,0 +1,7 @@
+/* Khu Nhân viên (/Staff): nhận diện riêng, khác khu Quản trị (màu vàng, không thanh bên) */
+body[data-shell="staff"] { background: var(--gold-50); }
+.stf-header { border-bottom: 3px solid var(--gold); }
+.stf-tag { margin-left: -6px; padding: 4px 10px; border-radius: 99px; background: var(--gold); color: var(--navy); font-size: .7rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+.stf { width: min(1040px, 100% - 32px); margin-inline: auto; padding: 28px 0 40px; }
+.stf .who-role { margin-left: 6px; padding: 2px 8px; border-radius: 99px; background: var(--gold); color: var(--navy); font-size: .68rem; font-weight: 800; }
+@media (max-width: 720px) { .stf { padding-top: 18px; } .stf-tag { display: none; } }

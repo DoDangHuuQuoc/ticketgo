@@ -1,0 +1,20 @@
+@{ ViewData["Title"] = "Yêu thích"; }
+@section Head { <link rel="stylesheet" href="~/css/favorites.css" asp-append-version="true" /> }
+<section class="wrap fv-hero">
+  <h1>Nghệ sĩ &amp; chương trình yêu thích</h1>
+  <p class="lead">Những cái tên nổi bật do TicketGo chọn. Hãy chấm sao để ủng hộ — được nhiều người đánh giá sẽ có dấu sao nổi bật cạnh ảnh đại diện.</p>
+  <div class="fv-tabs" id="tabs" role="group" aria-label="Lọc theo loại">
+    <button type="button" data-k="" aria-pressed="true">Tất cả</button>
+    <button type="button" data-k="Artist" aria-pressed="false">Nghệ sĩ</button>
+    <button type="button" data-k="Program" aria-pressed="false">Chương trình</button>
+  </div>
+</section>
+<section class="wrap fv-sec" id="secArtist" aria-labelledby="hArtist">
+  <div class="toolbar"><h2 id="hArtist">Nghệ sĩ yêu thích</h2></div>
+  <div class="fv-grid" id="gridArtist"><div class="skel" style="height:260px;border-radius:20px"></div></div>
+</section>
+<section class="wrap fv-sec" id="secProgram" aria-labelledby="hProgram">
+  <div class="toolbar"><h2 id="hProgram">Chương trình yêu thích</h2></div>
+  <div class="fv-grid" id="gridProgram"></div>
+</section>
+@section Scripts { <script src="~/js/favorites.js" asp-append-version="true"></script> }

@@ -1,0 +1,23 @@
+@{ ViewData["Title"] = "Quản lý vé"; ViewData["Active"] = "tickets"; ViewData["Heading"] = "Quản lý vé"; ViewData["Sub"] = "Danh sách vé đã phát hành, check-in thủ công, hoàn tác và thu hồi."; }
+@section Head { <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" /> }
+<div class="wrap adm">
+  <partial name="_AdminHero" />
+  <div id="guard" class="panel" hidden style="margin-top:24px"></div>
+  <div id="content" class="adm-body">
+    <div class="adm-bar">
+      <div class="grow">
+        <label class="search"><span class="sr-only">Tìm vé</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="q" type="search" placeholder="Email, tên hoặc mã vé" autocomplete="off" /></label>
+        <select id="ev" class="select" aria-label="Sự kiện"><option value="">Mọi sự kiện</option></select>
+      </div>
+      <div class="acts"><button class="btn btn-ghost" type="button" id="notify" disabled title="Chọn một sự kiện để gửi thông báo cho khách đã mua vé">✉ Thông báo cho khách</button><button class="btn btn-ghost" type="button" id="export" disabled title="Chọn một sự kiện để xuất danh sách khách">⬇ Xuất danh sách khách</button></div>
+    </div>
+    <div class="chips wrap-chips" id="chips" role="group" aria-label="Lọc trạng thái" style="margin-bottom:14px"></div>
+    <section class="panel"><div class="table-wrap"><table class="tbl"><thead><tr><th>Mã vé</th><th>Khách hàng</th><th>Sự kiện / loại vé</th><th>Trạng thái</th><th></th></tr></thead><tbody id="rows"></tbody></table></div><div class="pager" id="pager"></div></section>
+  </div>
+</div>
+@section Scripts {
+  <script src="~/js/admin-common.js" asp-append-version="true"></script>
+  <script src="~/js/admin-tickets.js" asp-append-version="true"></script>
+}

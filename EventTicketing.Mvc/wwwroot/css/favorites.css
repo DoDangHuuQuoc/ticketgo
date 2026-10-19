@@ -1,0 +1,55 @@
+/* Nghệ sĩ & chương trình yêu thích: trang khách (/Favorites) và bảng quản trị (/Manage/Favorites) */
+.fv-hero { padding-block: 36px 8px; }
+.fv-hero h1 { margin: 0 0 6px; font-size: clamp(1.6rem, 3vw, 2.2rem); }
+.fv-tabs { display: flex; gap: 8px; margin: 18px 0 8px; flex-wrap: wrap; }
+.fv-tabs button { min-height: 40px; padding: 6px 18px; border-radius: 99px; border: 1px solid var(--line-2); background: var(--surface); color: var(--ink-2); font: inherit; font-weight: 700; cursor: pointer; }
+.fv-tabs button[aria-pressed="true"] { background: var(--navy); border-color: var(--navy); color: #fff; }
+.fv-sec { margin-top: 28px; }
+.fv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 18px; }
+.fv-card { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 24px 18px 20px; text-align: center; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow-sm); transition: transform .15s, box-shadow .15s; }
+.fv-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.fv-card h3 { margin: 12px 0 0; font-size: 1.05rem; }
+.fv-card p { margin: 4px 0 0; font-size: .88rem; color: var(--muted); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.fv-kind { font-size: .72rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--brand); }
+
+/* Avatar + dấu sao nổi bật (hiện khi được đánh giá nhiều) */
+.fv-av { position: relative; flex: none; width: 96px; height: 96px; }
+.fv-av.sm { width: 44px; height: 44px; }
+.fv-av .pic { width: 100%; height: 100%; display: grid; place-items: center; overflow: hidden; border-radius: 50%; color: #fff; font-weight: 800; font-size: 1.9rem; background: linear-gradient(135deg, var(--brand), var(--navy-2)); }
+.fv-av.sm .pic { font-size: .95rem; }
+.fv-av.prog .pic { border-radius: 22%; }
+.fv-av .pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.fv-hot { position: absolute; right: -4px; top: -4px; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--gold); color: #fff; border: 3px solid #fff; box-shadow: 0 4px 10px -2px rgba(240, 169, 58, .8); }
+.fv-hot svg { width: 17px; height: 17px; fill: currentColor; stroke: currentColor; }
+.fv-av.sm .fv-hot { width: 20px; height: 20px; right: -6px; top: -6px; border-width: 2px; }
+.fv-av.sm .fv-hot svg { width: 11px; height: 11px; }
+
+/* Điểm + sao */
+.fv-score { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 6px; font-size: .86rem; color: var(--muted); }
+.fv-score b { color: var(--ink); font-size: .98rem; }
+.stars { display: inline-flex; gap: 2px; color: #d3d9e8; }
+.stars svg { width: 16px; height: 16px; fill: currentColor; stroke: none; }
+.stars .on { color: var(--gold); }
+
+/* Chọn sao để đánh giá */
+.rate { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line-2); width: 100%; }
+.rate-lab { font-size: .8rem; color: var(--muted); font-weight: 600; }
+.rate-stars { display: inline-flex; gap: 2px; }
+.rate-stars button { width: 36px; height: 36px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 8px; background: none; color: #d3d9e8; cursor: pointer; transition: transform .1s, color .1s; }
+.rate-stars button svg { width: 26px; height: 26px; fill: currentColor; }
+.rate-stars button.on { color: var(--gold); }
+.rate-stars:hover button { color: var(--gold); }
+.rate-stars button:hover ~ button { color: #d3d9e8; }
+.rate-stars button:hover { transform: scale(1.12); }
+.rate-stars button:disabled { cursor: wait; opacity: .6; }
+
+/* Admin */
+.fv-name { display: flex; align-items: center; gap: 12px; min-width: 200px; }
+.fv-name b { display: block; }
+.fv-legend { margin: 0 0 14px; }
+
+/* Mục nghệ sĩ trên trang chủ */
+.fv-home { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 14px; }
+.fv-mini { padding: 20px 12px 16px; color: inherit; text-decoration: none; }
+.fv-mini h3 { margin-top: 10px; font-size: 1rem; }
+.fv-mini .fv-score { flex-wrap: wrap; }

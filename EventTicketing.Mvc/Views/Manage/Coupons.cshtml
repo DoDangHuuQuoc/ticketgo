@@ -1,0 +1,66 @@
+@{ ViewData["Title"] = "Mã giảm giá"; ViewData["Active"] = "coupons"; ViewData["Heading"] = "Mã giảm giá"; ViewData["Sub"] = "Tạo mã giảm theo % hoặc số tiền; cấu hình ưu đãi khách VIP và mã chào mừng tự tặng khi khách tạo tài khoản thành công."; }
+@section Head { <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" /> }
+<div class="wrap adm">
+  <partial name="_AdminHero" />
+  <div id="guard" class="panel" hidden style="margin-top:24px"></div>
+  <div id="content" class="adm-body">
+    <form id="promoForm" novalidate>
+      <section class="panel"><div class="panel-h"><h2>Ưu đãi khách VIP</h2><span class="muted" id="vipCount"></span></div>
+        <div class="field"><label class="check"><input type="checkbox" id="vOn" /> Bật ưu đãi VIP (giảm trực tiếp trên giá vé và đơn hàng lưu niệm)</label></div>
+        <div class="grid2">
+          <div class="field"><label for="vPct">Giảm (%)</label><input id="vPct" type="number" min="1" max="50" step="1" inputmode="numeric" /></div>
+          <div class="field"><label for="vMax">Giảm tối đa mỗi đơn (đ, trống = không giới hạn)</label><input id="vMax" type="number" min="0" step="1000" inputmode="numeric" /></div>
+          <div class="field full"><label for="vAuto">Tự động lên VIP khi tổng chi tiêu đạt (đ — để 0 nếu chỉ gán VIP tay)</label><input id="vAuto" type="number" min="0" step="100000" inputmode="numeric" /></div>
+        </div>
+        <p class="hint">Gán nhãn VIP cho từng khách ở trang “Quản lý người dùng”. Ưu đãi VIP cộng dồn với mã giảm giá: mã được tính trên số tiền còn lại sau khi trừ ưu đãi VIP. Khi khách lên VIP (admin gán hoặc tự động theo chi tiêu), hệ thống gửi thông báo + email chúc mừng một lần.</p>
+      </section>
+      <section class="panel" style="margin-top:16px"><div class="panel-h"><h2>Mã chào mừng thành viên mới</h2></div>
+        <div class="field"><label class="check"><input type="checkbox" id="wOn" /> Tự tặng mã khi khách tạo tài khoản thành công (xác thực email xong)</label></div>
+        <div class="grid2">
+          <div class="field"><label for="wType">Kiểu giảm</label><select id="wType" class="select" style="width:100%"><option value="Percent">Theo phần trăm (%)</option><option value="Amount">Theo số tiền (đ)</option></select></div>
+          <div class="field"><label for="wVal" id="wValL">Giá trị</label><input id="wVal" type="number" min="1" step="1" inputmode="numeric" /></div>
+          <div class="field" id="wMaxW"><label for="wMax">Giảm tối đa (đ, trống = không giới hạn)</label><input id="wMax" type="number" min="0" step="1000" inputmode="numeric" /></div>
+          <div class="field"><label for="wMin">Đơn tối thiểu (đ)</label><input id="wMin" type="number" min="0" step="1000" inputmode="numeric" /></div>
+          <div class="field"><label for="wDays">Hạn dùng (ngày kể từ lúc cấp)</label><input id="wDays" type="number" min="1" max="365" step="1" inputmode="numeric" /></div>
+          <div class="field full"><label class="check"><input type="checkbox" id="wShop" /> Dùng được cả cho đơn hàng lưu niệm</label></div>
+        </div>
+        <p class="hint">Mỗi khách nhận một mã riêng dạng WELCOME-XXXXXX: dùng 1 lần, chỉ tài khoản đó dùng được, tự vào Ví voucher và được báo qua thông báo + email. Đổi cấu hình chỉ áp dụng cho các mã cấp sau đó.</p>
+      </section>
+      <div style="display:flex;gap:10px;align-items:center;margin:16px 0 24px"><button class="btn btn-primary" type="submit">Lưu ưu đãi</button></div>
+    </form>
+
+    <section class="panel" style="margin-bottom:28px">
+      <div class="panel-h"><h2>Mã chào mừng đã cấp</h2><span class="muted" id="wStats"></span></div>
+      <div class="adm-bar"><div class="grow">
+        <label class="search"><span class="sr-only">Tìm mã chào mừng</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="wq" type="search" placeholder="Tìm theo mã, email hoặc tên khách" autocomplete="off" /></label></div>
+        <button class="btn btn-ghost" type="button" id="wIssue">+ Cấp cho khách có sẵn</button></div>
+      <div class="table-wrap"><table class="tbl">
+        <thead><tr><th>Mã</th><th>Khách</th><th>Ưu đãi</th><th>Hạn dùng</th><th>Trạng thái</th><th></th></tr></thead>
+        <tbody id="wRows"><tr><td colspan="6" class="empty">Đang tải…</td></tr></tbody></table></div>
+      <div class="pager" id="wPager"></div>
+    </section>
+
+    <div class="panel-h" style="margin-top:4px"><h2>Mã giảm giá</h2></div>
+    <div class="adm-bar">
+      <div class="grow">
+        <label class="search"><span class="sr-only">Tìm mã giảm giá</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="q" type="search" placeholder="Tìm theo mã hoặc mô tả" autocomplete="off" /></label>
+        <select id="state" class="select" aria-label="Trạng thái">
+          <option value="">Mọi trạng thái</option><option value="on">Đang dùng được</option><option value="off">Đã tắt</option><option value="end">Hết hạn / hết lượt</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" type="button" id="newCp">+ Tạo mã</button>
+    </div>
+    <section class="panel"><div class="table-wrap"><table class="tbl">
+      <thead><tr><th>Mã</th><th>Mức giảm</th><th>Điều kiện</th><th>Thời hạn</th><th class="r">Lượt dùng</th><th>Trạng thái</th><th></th></tr></thead>
+      <tbody id="rows"><tr><td colspan="7" class="empty">Đang tải…</td></tr></tbody></table></div></section>
+  </div>
+</div>
+@section Scripts {
+  <script src="~/js/admin-common.js" asp-append-version="true"></script>
+  <script src="~/js/admin-coupons.js" asp-append-version="true"></script>
+  <script src="~/js/admin-promo.js" asp-append-version="true"></script>
+}

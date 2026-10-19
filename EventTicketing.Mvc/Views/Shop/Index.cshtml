@@ -1,0 +1,27 @@
+@{ ViewData["Title"] = "Cửa hàng lưu niệm"; }
+@section Head {
+  <link rel="stylesheet" href="~/css/shop.css" asp-append-version="true" />
+}
+<div class="wrap sh-page">
+  <div class="page-head">
+    <div>
+      <h1>Cửa hàng lưu niệm</h1>
+      <p class="muted" style="margin:6px 0 0">Light stick, áo, phụ kiện cổ vũ cho đêm diễn của bạn. Thanh toán khi nhận hàng hoặc trả online qua payOS.</p>
+    </div>
+    <div class="sh-actions">
+      <div class="sh-tabs" role="tablist" aria-label="Cửa hàng">
+        <button type="button" class="sh-tab" role="tab" id="tab-shop" aria-selected="true" aria-controls="pane-shop">Sản phẩm</button>
+        <button type="button" class="sh-tab" role="tab" id="tab-orders" aria-selected="false" aria-controls="pane-orders">Đơn của tôi</button>
+      </div>
+      <button type="button" class="btn btn-primary sh-cartbtn" id="cartBtn">Giỏ hàng <span class="sh-n" id="cartN" hidden></span></button>
+    </div>
+  </div>
+  <section id="pane-shop" role="tabpanel" aria-labelledby="tab-shop">
+    <div class="sh-chips" id="chips" role="group" aria-label="Danh mục"></div>
+    <div class="sh-grid" id="grid"><div class="skel" style="height:300px;border-radius:20px"></div><div class="skel" style="height:300px;border-radius:20px"></div></div>
+  </section>
+  <section id="pane-orders" role="tabpanel" aria-labelledby="tab-orders" hidden></section>
+</div>
+<div class="sh-ov" id="ov" hidden></div>
+<aside class="sh-cart" id="cart" aria-label="Giỏ hàng" aria-hidden="true"></aside>
+@section Scripts { <script src="~/js/shop-reviews.js" asp-append-version="true"></script> <script src="~/js/shop.js" asp-append-version="true"></script> }

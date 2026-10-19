@@ -1,0 +1,67 @@
+@{ ViewData["Title"] = "Đăng ký"; ViewData["Auth"] = true; }
+<div class="auth">
+  <partial name="_AuthArt" />
+  <div class="auth-form">
+    <div class="auth-top">
+      <a class="brand auth-brand" href="/" aria-label="TicketGo"><img src="/img/logo-wordmark.png" alt="TicketGo" width="210" height="46" /></a>
+      <a class="auth-back" href="/">&larr; Về trang chủ</a>
+      <span>Đã có tài khoản? <a href="/Account/Login">Đăng nhập</a></span>
+    </div>
+    <form id="f" class="auth-card" data-mode="register" novalidate>
+      <ol class="auth-steps" aria-label="Các bước đăng ký">
+        <li aria-current="step">Tạo tài khoản</li>
+        <li>Xác thực email</li>
+      </ol>
+      <h1>Tạo tài khoản</h1>
+      <p class="muted">Mất chưa đầy một phút. Mã OTP 6 số sẽ được gửi tới email của bạn để xác thực.</p>
+      <p class="form-err" id="formErr" role="alert"></p>
+
+      <div class="field" data-field="fullName">
+        <label for="fullName">Họ và tên</label>
+        <div class="ctl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <input id="fullName" name="fullName" autocomplete="name" required placeholder="Nguyễn Văn A" aria-describedby="fullName-err" /></div>
+        <small class="err" id="fullName-err" role="alert"></small>
+      </div>
+
+      <div class="field" data-field="email">
+        <label for="email">Email</label>
+        <div class="ctl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+          <input id="email" name="email" type="email" autocomplete="email" required placeholder="ten@@email.com" aria-describedby="email-err" /></div>
+        <small class="err" id="email-err" role="alert"></small>
+      </div>
+
+      <div class="field" data-field="password">
+        <label for="password">Mật khẩu</label>
+        <div class="ctl pw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          <input id="password" name="password" type="password" minlength="8" autocomplete="new-password" required aria-describedby="password-err pwRules" />
+          <button type="button" class="pw-toggle" aria-label="Hiện mật khẩu"></button></div>
+        <div class="pw-meter" id="pwMeter" data-lv="0" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <div class="pw-label"><span id="pwLabel">Nhập mật khẩu để kiểm tra độ mạnh</span></div>
+        <ul class="pw-rules" id="pwRules">
+          <li data-rule="len">Từ 8 ký tự</li>
+          <li data-rule="case">Chữ hoa và chữ thường</li>
+          <li data-rule="num">Có chữ số</li>
+          <li data-rule="sym">Có ký tự đặc biệt</li>
+        </ul>
+        <small class="err" id="password-err" role="alert"></small>
+      </div>
+
+      <div class="field" data-field="confirm">
+        <label for="confirm">Nhập lại mật khẩu</label>
+        <div class="ctl pw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          <input id="confirm" name="confirm" type="password" autocomplete="new-password" required aria-describedby="confirm-err" />
+          <button type="button" class="pw-toggle" aria-label="Hiện mật khẩu"></button></div>
+        <small class="err" id="confirm-err" role="alert"></small>
+      </div>
+
+      <div class="field" data-field="agree">
+        <label class="agree"><input type="checkbox" id="agree" name="agree" required /><span>Tôi đồng ý với <a href="#">Điều khoản sử dụng</a> và <a href="#">Chính sách bảo mật</a> của TicketGo.</span></label>
+        <small class="err" id="agree-err" role="alert"></small>
+      </div>
+
+      <button class="btn btn-primary btn-block" type="submit">Tạo tài khoản</button>
+      <p class="muted center" style="margin-top:18px">Đã có tài khoản? <a href="/Account/Login" class="link">Đăng nhập</a></p>
+    </form>
+  </div>
+</div>
+@section Scripts { <script src="~/js/auth.js" asp-append-version="true"></script> }

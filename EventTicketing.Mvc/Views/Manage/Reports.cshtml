@@ -1,0 +1,31 @@
+@{ ViewData["Title"] = "Báo cáo doanh thu"; ViewData["Active"] = "reports"; ViewData["Heading"] = "Báo cáo doanh thu"; ViewData["Sub"] = "Chọn khoảng thời gian để xem doanh thu theo ngày, sự kiện, loại vé, mã giảm giá và xuất CSV."; }
+@section Head { <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" /> }
+<div class="wrap adm">
+  <partial name="_AdminHero" />
+  <div id="guard" class="panel" hidden style="margin-top:24px"></div>
+  <div id="content" class="adm-body">
+    <div class="adm-bar">
+      <div class="grow">
+        <div class="chips" id="preset" role="group" aria-label="Khoảng nhanh">
+          <button type="button" data-d="7" aria-pressed="false">7 ngày</button>
+          <button type="button" data-d="30" aria-pressed="true">30 ngày</button>
+          <button type="button" data-d="90" aria-pressed="false">90 ngày</button>
+          <button type="button" data-d="month" aria-pressed="false">Tháng này</button>
+        </div>
+        <label class="sr-only" for="from">Từ ngày</label><input id="from" type="date" class="select" />
+        <label class="sr-only" for="to">Đến ngày</label><input id="to" type="date" class="select" />
+        <select id="ev" class="select" aria-label="Sự kiện"><option value="">Mọi sự kiện</option></select>
+      </div>
+    </div>
+    <div class="kpis" id="kpi"><div class="kpi-skel"></div><div class="kpi-skel"></div><div class="kpi-skel"></div><div class="kpi-skel"></div></div>
+    <section class="panel"><div class="panel-h"><h2>Doanh thu theo ngày</h2><button class="btn btn-ghost btn-sm" type="button" data-exp="day">⬇ CSV</button></div><div id="chart" class="rp-chart" role="img" aria-label="Biểu đồ doanh thu theo ngày"></div><div class="rp-axis" id="axis"></div></section>
+    <section class="panel"><div class="panel-h"><h2>Theo sự kiện</h2><button class="btn btn-ghost btn-sm" type="button" data-exp="event">⬇ CSV</button></div><div class="table-wrap"><table class="tbl"><thead><tr><th>Sự kiện</th><th class="r">Đơn</th><th class="r">Vé bán</th><th class="r">Doanh thu</th><th class="r">Giảm giá</th><th>Lấp đầy</th></tr></thead><tbody id="tEvent"></tbody></table></div></section>
+    <section class="panel"><div class="panel-h"><h2>Theo loại vé</h2><button class="btn btn-ghost btn-sm" type="button" data-exp="type">⬇ CSV</button></div><div class="table-wrap"><table class="tbl"><thead><tr><th>Loại vé</th><th>Sự kiện</th><th class="r">Đơn</th><th class="r">Vé bán</th><th class="r">Doanh thu</th><th>Lấp đầy</th></tr></thead><tbody id="tType"></tbody></table></div></section>
+    <section class="panel"><div class="panel-h"><h2>Mã giảm giá</h2><button class="btn btn-ghost btn-sm" type="button" data-exp="coupon">⬇ CSV</button></div><div class="table-wrap"><table class="tbl"><thead><tr><th>Mã</th><th class="r">Đơn</th><th class="r">Vé</th><th class="r">Tiền đã giảm</th><th class="r">Doanh thu</th></tr></thead><tbody id="tCoupon"></tbody></table></div></section>
+    <p class="hint">Doanh thu tính theo ngày tạo đơn (giờ Việt Nam) của các đơn đang ở trạng thái <b>Đã thanh toán</b>; đơn đã hoàn tiền không còn nằm trong doanh thu. Vé mời không tính vào doanh thu và mã giảm giá.</p>
+  </div>
+</div>
+@section Scripts {
+  <script src="~/js/admin-common.js" asp-append-version="true"></script>
+  <script src="~/js/admin-reports.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,30 @@
+@{ ViewData["Title"] = "Thanh toán & mã QR"; ViewData["Active"] = "payments"; ViewData["Heading"] = "Thanh toán & mã QR"; ViewData["Sub"] = "Thiết lập tài khoản nhận tiền. Mã QR VietQR của mỗi đơn tự điền đúng số tiền và nội dung chuyển khoản."; }
+@section Head { <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" /> }
+<div class="wrap adm">
+  <partial name="_AdminHero" />
+  <div id="guard" class="panel" hidden style="margin-top:24px"></div>
+  <div id="content" class="adm-body">
+    <div class="pay-grid">
+      <section class="panel">
+        <h2 class="pay-h">Tài khoản nhận tiền</h2>
+        <div id="notice"></div>
+        <form id="form" novalidate>
+          <div class="field"><label for="bank">Ngân hàng</label><select id="bank" class="select" style="width:100%"><option value="">— Chọn ngân hàng —</option></select></div>
+          <div class="field"><label for="acc">Số tài khoản</label><input id="acc" inputmode="numeric" maxlength="19" autocomplete="off" placeholder="VD: 0123456789" /></div>
+          <div class="field"><label for="name">Tên chủ tài khoản</label><input id="name" maxlength="100" autocomplete="off" placeholder="VD: NGUYEN VAN A" /><small class="muted">Hiển thị cho khách đối chiếu khi chuyển khoản.</small></div>
+          <div class="dlg-f" style="justify-content:flex-start"><button class="btn btn-primary" type="submit" id="save">Lưu tài khoản</button></div>
+        </form>
+      </section>
+      <section class="panel">
+        <h2 class="pay-h">Xem thử mã QR</h2>
+        <div class="field"><label for="amt">Số tiền thử (đ)</label><input id="amt" type="number" min="1000" step="1000" value="10000" /></div>
+        <div class="pay-prev" id="prev"><p class="muted">Chọn ngân hàng và nhập số tài khoản để xem thử.</p></div>
+        <p class="hint" style="margin-top:14px">Quét thử bằng app ngân hàng: số tiền, tài khoản và nội dung phải tự điền đúng như bên dưới mã. Nội dung của đơn thật có dạng <b>TG</b> + 8 ký tự đầu của mã đơn.</p>
+      </section>
+    </div>
+  </div>
+</div>
+@section Scripts {
+  <script src="~/js/admin-common.js" asp-append-version="true"></script>
+  <script src="~/js/admin-payments.js" asp-append-version="true"></script>
+}

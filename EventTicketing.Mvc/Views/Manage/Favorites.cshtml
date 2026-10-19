@@ -1,0 +1,31 @@
+@{ ViewData["Title"] = "Nghệ sĩ & chương trình"; ViewData["Active"] = "favorites"; ViewData["Heading"] = "Nghệ sĩ & chương trình yêu thích"; ViewData["Sub"] = "Thêm nghệ sĩ, chương trình để khách xem và chấm sao (tối đa 5). Mục được đánh giá nhiều sẽ có dấu sao nổi bật cạnh ảnh đại diện."; }
+@section Head {
+  <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+  <link rel="stylesheet" href="~/css/favorites.css" asp-append-version="true" />
+}
+<div class="wrap adm">
+  <partial name="_AdminHero" />
+  <div id="guard" class="panel" hidden style="margin-top:24px"></div>
+  <div id="content" class="adm-body">
+    <div class="adm-bar">
+      <div class="grow">
+        <label class="search"><span class="sr-only">Tìm nghệ sĩ hoặc chương trình</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="q" type="search" placeholder="Tìm theo tên" autocomplete="off" /></label>
+        <select id="kind" class="select" aria-label="Loại">
+          <option value="">Tất cả loại</option><option value="Artist">Nghệ sĩ</option><option value="Program">Chương trình</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" type="button" id="newFv">+ Thêm mới</button>
+    </div>
+    <p class="hint fv-legend" id="legend"></p>
+    <section class="panel"><div class="table-wrap"><table class="tbl">
+      <thead><tr><th>Tên</th><th>Loại</th><th>Đánh giá</th><th>Trạng thái</th><th></th></tr></thead>
+      <tbody id="rows"><tr><td colspan="5" class="empty">Đang tải…</td></tr></tbody></table></div></section>
+  </div>
+</div>
+@section Scripts {
+  <script src="~/js/admin-common.js" asp-append-version="true"></script>
+  <script src="~/js/favorites.js" asp-append-version="true"></script>
+  <script src="~/js/admin-favorites.js" asp-append-version="true"></script>
+}

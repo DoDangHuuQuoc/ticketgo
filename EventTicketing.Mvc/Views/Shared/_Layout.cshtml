@@ -1,0 +1,114 @@
+@inject EventTicketing.Mvc.Services.SiteApiClient SiteApi
+@inject Microsoft.Extensions.Configuration.IConfiguration SiteCfg
+@{
+  var auth = ViewData["Auth"] != null;
+  var site = await SiteApi.GetPublicAsync();   // dữ liệu lấy từ Web API (api/site/public), MVC không đọc CSDL
+  var tel = new string(site.Hotline.Where(c => char.IsDigit(c) || c == '+').ToArray());
+  var showBot = !auth && site.ChatbotEnabled && !Context.Request.Path.StartsWithSegments("/Manage");
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0f1d44" />
+  <link rel="icon" type="image/png" href="/img/favicon.png" />
+  <title>@ViewData["Title"] – TicketGo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>
+    // Tài khoản Admin/Nhân viên chỉ dùng khu quản trị: vào trang khách là chuyển sang /Manage ngay (trước khi vẽ giao diện)
+    (function () {
+      try {
+        var r = localStorage.getItem('role');
+        if (localStorage.getItem('jwt') && (r === 'Admin' || r === 'Staff')) {
+          document.documentElement.style.visibility = 'hidden';
+          var pf = location.pathname.toLowerCase().indexOf('/account/profile') === 0;
+          location.replace(r === 'Staff' ? (pf ? '/Staff/Profile' : '/Staff/CheckIn') : (pf ? '/Manage/Profile' : '/Manage/Dashboard'));
+        }
+      } catch (e) { }
+    })();
+  </script>
+  <link rel="stylesheet" href="~/css/ui.css" asp-append-version="true" />
+  @if (showBot) { <link rel="stylesheet" href="~/css/chatbot.css" asp-append-version="true" /> }
+  @await RenderSectionAsync("Head", required: false)
+</head>
+<body class="@(auth ? "is-auth" : "")" data-hotline="@site.Hotline">
+  <a class="skip" href="#main">Bỏ qua điều hướng</a>
+
+  @if (!auth)
+  {
+  <div class="topbar">
+    <div class="wrap topbar-in">
+      <span>TicketGo – Nhanh chóng · Tiện lợi · Uy tín. Giữ chỗ 10 phút, vé QR gửi email ngay.</span>
+      <span class="topbar-r"><a href="tel:@tel">Hotline @site.Hotline</a><a href="mailto:@site.Email">@site.Email</a></span>
+    </div>
+  </div>
+
+  @if (site.BannerEnabled && !string.IsNullOrWhiteSpace(site.BannerText))
+  {
+  <div class="@("site-banner tone-" + site.BannerTone)" role="region" aria-label="Thông báo">
+    <div class="wrap site-banner-in">
+      <span>@site.BannerText</span>
+      @if (!string.IsNullOrWhiteSpace(site.BannerLink)) { <a href="@site.BannerLink">Xem thêm →</a> }
+      <button type="button" aria-label="Đóng thông báo" onclick="this.closest('.site-banner').remove()">×</button>
+    </div>
+  </div>
+  }
+
+  <header class="site-header">
+    <div class="wrap bar">
+      <a class="brand" href="/" aria-label="TicketGo – Trang chủ"><img src="/img/logo-wordmark.png" alt="TicketGo" width="185" height="52" /></a>
+      <form class="hsearch" action="/" method="get" role="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" name="q" placeholder="Tìm sự kiện, địa điểm" aria-label="Tìm sự kiện" autocomplete="off" />
+        <button type="submit">Tìm</button>
+      </form>
+      <nav class="nav" id="nav" aria-label="Tài khoản"></nav>
+      <button class="burger" type="button" id="burger" aria-label="Mở menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+    <div class="catbar">
+      <nav class="wrap cats" id="cats" aria-label="Danh mục">
+        <a href="/" data-m="all"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/></svg>Trang chủ</a>
+        <a href="/?cat=Concert" data-m="c:Concert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>Ca nhạc</a>
+        <a href="/?cat=Sport" data-m="c:Sport"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m12 7.5 4 2.9-1.5 4.7h-5L8 10.4l4-2.9Z"/><path d="M12 3v4.5M3.6 9.6 8 10.4M20.4 9.6 16 10.4M7 19.2l2.5-4.1M17 19.2l-2.5-4.1"/></svg>Thể thao</a>
+        <a href="/?cat=Theatre" data-m="c:Theatre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h10v7a5 5 0 0 1-10 0V4Z"/><path d="M7 8h.01M11 8h.01M7.5 12.5c1 .8 2.5.8 3.5 0"/><path d="M14 8h6v6a4.5 4.5 0 0 1-7 3.7"/></svg>Sân khấu</a>
+        <a href="/Favorites" class="cats-fav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z"/></svg>Yêu thích</a>
+        <a href="/Promotions?tab=mine" class="cats-vc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4V8Z"/><path d="m9 15 6-6M9.5 9.5h.01M14.5 14.5h.01"/></svg>Voucher của tôi</a>
+        <a href="/Shop" class="cats-shop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h12l1 13H5L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>Cửa hàng</a>
+        <a href="/Account/MyBookings" class="cats-me"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9a2 2 0 0 0 0 6v3h18v-3a2 2 0 0 1 0-6V6H3v3Z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg>Vé của tôi</a>
+      </nav>
+    </div>
+  </header>
+  }
+
+  <main id="main">@RenderBody()</main>
+
+  @if (!auth)
+  {
+  <footer class="site-footer">
+    <div class="wrap foot-grid">
+      <div class="foot-about">
+        <a class="brand brand-light" href="/" aria-label="TicketGo – Trang chủ"><img src="/img/logo-wordmark-light.png" alt="TicketGo" width="207" height="58" /></a>
+        <p>Nền tảng bán vé ca nhạc và thể thao. Giữ chỗ nhanh, thanh toán an toàn, vé điện tử QR không cần in.</p>
+        <div class="socials" aria-label="Mạng xã hội">
+          <a href="#" aria-label="Facebook">f</a><a href="#" aria-label="YouTube">▶</a><a href="#" aria-label="TikTok">♪</a><a href="#" aria-label="Instagram">◎</a>
+        </div>
+      </div>
+      <div><h4>Khám phá</h4><a href="/">Tất cả sự kiện</a><a href="/?st=avail">Sự kiện còn vé</a><a href="/?st=low">Sắp hết vé</a><a href="/Favorites">Nghệ sĩ &amp; chương trình yêu thích</a><a href="/Account/MyBookings">Vé của tôi</a><a href="/Promotions?tab=mine">Voucher của tôi</a><a href="/Shop">Cửa hàng lưu niệm</a></div>
+      <div><h4>Hỗ trợ</h4><a href="#">Hướng dẫn mua vé</a><a href="#">Chính sách hoàn/đổi vé</a><a href="#">Điều khoản sử dụng</a><a href="#">Chính sách bảo mật</a></div>
+      <div><h4>Liên hệ</h4><p>Hotline: <b>@site.Hotline</b></p><p>@site.Email</p><p>Đà Nẵng, Việt Nam</p>
+        <div class="pay"><span>QR</span><span>ATM</span><span>VISA</span><span>MoMo</span></div></div>
+    </div>
+    <div class="copy"><div class="wrap">© 2026 TicketGo. Đồ án học tập.</div></div>
+  </footer>
+  }
+
+  <div id="toast" class="toasts" popover="manual" role="status" aria-live="polite"></div>
+  <script>window.API_BASE = @Html.Raw(System.Text.Json.JsonSerializer.Serialize((SiteCfg["Api:BaseUrl"] ?? "").Trim().TrimEnd('/')));</script>
+  <script src="~/js/app.js" asp-append-version="true"></script>
+  @if (showBot) { <script src="~/js/chatbot.js" asp-append-version="true" defer></script> }
+  @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
